@@ -8,4 +8,4 @@ whitenoise==6.4.0  # Optional, for static file handling
 django-storages==1.13.1  # Optional, if using S3 for static/media files
 boto3==1.26.14  # Optional, if using AWS S3
 dj-database-url
-
+python-dotenv
