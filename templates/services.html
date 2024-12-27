@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services | FitnessClub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="navbar">
+        <div class="contact-info">
+          <span>Contact: +91 9874 456 123</span>
+        </div>
+        <ul>
+          <li>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="far fa-envelope"></i></a>
+          </li>
+        </ul>
+      </div>
+    <header>
+        <div class="logo">Fitness <span>Club</span></div>
+        <div class="burger">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'aboutus' %}">About</a></li>
+            <li><a href="{% url 'services' %}">Services</a></li>
+            <li><a href="{% url 'blog' %}">Blog</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropbtn">Membership</a>
+              <div class="dropdown-content">
+                <a href="{% url 'starterplan' %}">Starter</a>
+                <a href="{% url 'achieverplan' %}">Achiever</a>
+                <a href="{% url 'transformerplan' %}">Transformer</a>
+                <a href="{% url 'eliteplan' %}">Elite</a>
+              </div>
+            </li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li class="dropdown dropdown-shop">
+              <a href="{% url 'shop' %}" class="dropbtn">Shop</a>
+              <div class="dropdown-content">
+                <a href="#">Supplements</a>
+                <a href="#">Fitness Gear</a>
+                <a href="#">Apparel</a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+          <h1>Transform Your Fitness Journey</h1>
+          <p>Discover our premium gym services tailored just for you</p>
+          <a href="#services" class="cta-btn">Explore Services</a>
+      </div>
+  </section>
+
+  <section class="services-section" id="services">
+      <div class="container">
+          <div class="section-title">
+              <h2>Our Premium Services</h2>
+          </div>
+          <div class="services-grid">
+              <div class="service-card">
+                  <div class="service-icon">
+                      <i class="fas fa-dumbbell"></i>
+                  </div>
+                  <div class="service-content">
+                      <h3>Personal Training</h3>
+                      <p>Get one-on-one guidance from our certified trainers to achieve your fitness goals faster.</p>
+                      <a href="#" class="btn-learn-more">Learn More</a>
+                  </div>
+              </div>
+              <div class="service-card">
+                  <div class="service-icon">
+                      <i class="fas fa-heartbeat"></i>
+                  </div>
+                  <div class="service-content">
+                      <h3>Group Fitness Classes</h3>
+                      <p>Join our energizing group sessions led by expert instructors for maximum motivation.</p>
+                      <a href="#" class="btn-learn-more">Learn More</a>
+                  </div>
+              </div>
+              <div class="service-card">
+                  <div class="service-icon">
+                      <i class="fas fa-apple-alt"></i>
+                  </div>
+                  <div class="service-content">
+                      <h3>Nutrition Coaching</h3>
+                      <p>Receive personalized meal plans and expert advice to fuel your fitness journey effectively.</p>
+                      <a href="#" class="btn-learn-more">Learn More</a>
+                  </div>
+              </div>
+              <div class="service-card">
+                  <div class="service-icon">
+                      <i class="fas fa-spa"></i>
+                  </div>
+                  <div class="service-content">
+                      <h3>Yoga & Meditation</h3>
+                      <p>Find balance and inner peace with our expert-led yoga and meditation sessions.</p>
+                      <a href="#" class="btn-learn-more">Learn More</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+  <script>
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+          anchor.addEventListener('click', function (e) {
+              e.preventDefault();
+              document.querySelector(this.getAttribute('href')).scrollIntoView({
+                  behavior: 'smooth'
+              });
+          });
+      });
+
+      // Animate service cards on scroll
+      const observerOptions = {
+          root: null,
+          rootMargin: '0px',
+          threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.style.animation = `fadeInUp 1s ease-out ${entry.target.dataset.delay}`;
+                  entry.target.style.opacity = 1;
+              }
+          });
+      }, observerOptions);
+
+      document.querySelectorAll('.service-card').forEach((card, index) => {
+          card.style.opacity = 0;
+          card.dataset.delay = `${index * 0.2}s`;
+          observer.observe(card);
+      });
+  </script>
+    <footer class="footer">
+        <div class="container">
+          <div class="footer-content">
+            <div class="footer-section">
+              <h3>Fitness Club</h3>
+              <p>
+                Empowering you to achieve your fitness goals and embrace a
+                healthier lifestyle. Join our community today!
+              </p>
+              <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+            <div class="footer-section">
+              <h3>Quick Links</h3>
+              <ul class="footer-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Classes Schedule</a></li>
+                <li><a href="#">Membership Plans</a></li>
+              </ul>
+            </div>
+            <div class="footer-section contact-info">
+              <h3>Contact Us</h3>
+              <p>
+                <i class="fas fa-map-marker-alt"></i> 123 Fitness Street, Healthy
+                City, 12345
+              </p>
+              <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+              <p><i class="fas fa-envelope"></i> info@fitnessclub.com</p>
+              <p>
+                <i class="fas fa-clock"></i> Mon-Fri: 5am-11pm, Sat-Sun: 7am-9pm
+              </p>
+            </div>
+            <div class="footer-section">
+              <h3>Join Our Club</h3>
+              <p>Start your fitness journey today and transform your life!</p>
+              <a href="#" class="cta-button">Become a Member</a>
+              <div class="payment-icons">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-apple-pay"></i>
+              </div>
+            </div>
+          </div>
+          <div class="copyright">
+            <p>
+              &copy; 2024 Fitness Club. All rights reserved. | Designed with
+              <i class="fas fa-heart" style="color: #4caf50"></i> for a healthier
+              you
+            </p>
+          </div>
+        </div>
+      </footer>
+    
+      <script src="{% static 'js/script.js' %}"></script>
+      
+</body>
+</html>

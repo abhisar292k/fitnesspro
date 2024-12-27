@@ -1,0 +1,877 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - FitPro Gym</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+
+        :root {
+            --primary: #00c853;
+            --primary-dark: #009624;
+            --secondary: #ffd600;
+            --text: #2c3e50;
+            --gray: #95a5a6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .fc-container {
+            max-width: 1300px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .fc-contact-wrapper {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            background: #fff;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .fc-contact-form {
+            padding: 60px;
+            background: #fff;
+        }
+
+        .fc-contact-info {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: #fff;
+            padding: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fc-contact-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/api/placeholder/400/400') center/cover;
+            opacity: 0.1;
+            mix-blend-mode: overlay;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .fc-contact-form h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .fc-form-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .fc-form-group label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #fff;
+            padding: 0 8px;
+            color: var(--gray);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .fc-form-group textarea+label {
+            top: 24px;
+        }
+
+        .fc-form-group input:focus+label,
+        .fc-form-group textarea:focus+label,
+        .fc-form-group input:not(:placeholder-shown)+label,
+        .fc-form-group textarea:not(:placeholder-shown)+label {
+            top: 0;
+            font-size: 0.85em;
+            color: var(--primary);
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 200, 83, 0.1);
+            outline: none;
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 16px 40px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.2);
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 200, 83, 0.3);
+        }
+
+        .fc-contact-details {
+            margin-bottom: 40px;
+        }
+
+        .fc-contact-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .fc-contact-details p {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 1rem;
+        }
+
+        .fc-social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .fc-social-icons a {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .fc-social-icons a:hover {
+            background: #fff;
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .success-message {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(150%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .success-message.show {
+            transform: translateX(0);
+        }
+
+        .success-message i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 968px) {
+            .fc-contact-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .fc-contact-form,
+            .fc-contact-info {
+                padding: 40px;
+            }
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #fff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        button.loading .loading-spinner {
+            display: inline-block;
+        }
+
+        button.loading span {
+            display: none;
+        }
+
+
+
+        /* File upload styles */
+        .file-upload {
+            margin-bottom: 20px;
+        }
+
+        .file-upload label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        /* Progress bar styles */
+        .form-progress {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .step-number {
+            background: var(--primary);
+        }
+
+        .step-title {
+            font-size: 0.85rem;
+            color: var(--gray);
+        }
+
+        .progress-step.active .step-title {
+            color: var(--primary);
+        }
+
+        /* File upload styles */
+        .file-upload {
+            margin-bottom: 20px;
+        }
+
+        .file-upload label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload label:hover {
+            background: #e9ecef;
+        }
+
+        .file-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .file-preview-item {
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Form step styles */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .step-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* File upload progress */
+        .upload-progress {
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .upload-progress-bar {
+            height: 100%;
+            background: var(--primary);
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        /* Error message styles */
+        .error-message {
+            color: #dc3545;
+            font-size: 0.85rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .fc-form-group.error input,
+        .fc-form-group.error textarea {
+            border-color: #dc3545;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .review-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .review-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .review-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .review-item strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .review-item p {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        #review-files-list {
+            list-style: none;
+            padding: 0;
+            margin: 5px 0 0 0;
+        }
+
+        #review-files-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            /* Increased from 20px to 40px */
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            margin-bottom: 30px;
+            /* Added margin-bottom for extra spacing */
+        }
+
+        .back-to-home:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .back-to-home span {
+            display: inline;
+        }
+
+        @media (max-width: 768px) {
+            .back-to-home {
+                padding: 10px;
+            }
+
+            .back-to-home span {
+                display: none;
+            }
+        }
+
+        .fc-container {
+            max-width: 1300px;
+            margin: 80px auto;
+            /* Increased from 60px to 80px */
+            padding: 0 40px;
+            /* Increased from 20px to 40px */
+        }
+        .footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--text);
+    font-size: 0.9rem;
+    margin-top: 40px;
+    background: #fff;
+    border-top: 1px solid #e9ecef;
+    width: 100%;
+    position: relative;
+}
+
+/* Add responsive styles */
+@media (max-width: 768px) {
+    .footer {
+        padding: 15px;
+        font-size: 0.8rem;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer {
+        padding: 12px;
+        font-size: 0.75rem;
+        margin-top: 20px;
+    }
+}
+    </style>
+</head>
+
+<body>
+    <a href="{% url 'index' %}" class="back-to-home">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Home</span>
+    </a>
+
+
+    <div class="fc-container">
+        <div class="fc-contact-wrapper">
+            <div class="fc-contact-form">
+                <h2>Get in Touch</h2>
+                <div class="form-progress">
+                    <div class="progress-step active" data-step="1">
+                        <span class="step-number">1</span>
+                        <span class="step-title">Personal Info</span>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <span class="step-number">2</span>
+                        <span class="step-title">Message</span>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <span class="step-number">3</span>
+                        <span class="step-title">Confirm</span>
+                    </div>
+                </div>
+                <form id="contactForm">
+                    <div class="form-step active" data-step="1">
+                        <div class="fc-form-group">
+                            <input type="text" id="name" required placeholder=" ">
+                            <label for="name">Full Name</label>
+                        </div>
+                        <div class="fc-form-group">
+                            <input type="email" id="email" required placeholder=" ">
+                            <label for="email">Email Address</label>
+                        </div>
+                        <div class="fc-form-group">
+                            <input type="tel" id="phone" required placeholder=" ">
+                            <label for="phone">Phone Number</label>
+                        </div>
+                        <div class="step-buttons">
+                            <div></div>
+                            <button type="button" class="next-step">Next <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="2">
+                        <div class="fc-form-group">
+                            <textarea id="message" required placeholder=" "></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+                        <div class="file-upload">
+                            <label for="attachment">
+                                <i class="fas fa-paperclip"></i>
+                                <span>Attach Files (Optional)</span>
+                                <input type="file" id="attachment" multiple hidden>
+                            </label>
+                            <div id="file-preview" class="file-preview"></div>
+                        </div>
+                        <div class="step-buttons">
+                            <button type="button" class="prev-step"><i class="fas fa-arrow-left"></i> Previous</button>
+                            <button type="button" class="next-step">Next <i class="fas fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="form-step" data-step="3">
+                        <div class="review-section">
+                            <h3>Review Your Information</h3>
+                            <div class="review-item">
+                                <strong>Full Name:</strong>
+                                <span id="review-name"></span>
+                            </div>
+                            <div class="review-item">
+                                <strong>Email:</strong>
+                                <span id="review-email"></span>
+                            </div>
+                            <div class="review-item">
+                                <strong>Phone:</strong>
+                                <span id="review-phone"></span>
+                            </div>
+                            <div class="review-item">
+                                <strong>Message:</strong>
+                                <p id="review-message"></p>
+                            </div>
+                            <div class="review-item" id="review-files">
+                                <strong>Attached Files:</strong>
+                                <ul id="review-files-list"></ul>
+                            </div>
+                        </div>
+                        <div class="step-buttons">
+                            <button type="button" class="prev-step"><i class="fas fa-arrow-left"></i> Previous</button>
+                            <button type="submit">
+                                <div class="loading-spinner"></div>
+                                <span><i class="fas fa-paper-plane"></i> Send Message</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="fc-contact-info">
+                <h2>Contact Information</h2>
+                <div class="fc-contact-details">
+                    <h3>Find Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Fitness Street, Gym City, 12345</p>
+                    <p><i class="fas fa-envelope"></i> info@fitprogym.com</p>
+                    <p><i class="fas fa-phone-alt"></i> +1 (123) 456-7890</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 6am-10pm<br>Sat-Sun: 8am-8pm</p>
+                </div>
+                <div class="fc-social-icons">
+                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <div id="map" style="height: 200px; margin-top: 20px; border-radius: 12px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i>
+        <div>
+            <h4>Message Sent Successfully!</h4>
+            <p>We'll get back to you within 24 hours.</p>
+        </div>
+    </div>
+<!-- Add this right before the closing </body> tag -->
+<footer class="footer">
+    <p>&copy; 2025 FitnessClub. All Rights Reserved.</p>
+</footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+
+            // Floating label animation
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    input.parentElement.classList.add('focused');
+                });
+
+                input.addEventListener('blur', () => {
+                    if (!input.value) {
+                        input.parentElement.classList.remove('focused');
+                    }
+                });
+            });
+
+            // Form submission
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const button = form.querySelector('button');
+                button.classList.add('loading');
+
+                // Simulate API call
+                await new Promise(resolve => setTimeout(resolve, 1500));
+
+                // Show success message
+                successMessage.classList.add('show');
+                button.classList.remove('loading');
+                form.reset();
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+            });
+
+            // GSAP animations
+            gsap.from('.fc-contact-wrapper', {
+                duration: 1,
+                y: 50,
+                opacity: 0,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.fc-contact-info', {
+                duration: 1,
+                x: 50,
+                opacity: 0,
+                delay: 0.3,
+                ease: 'power3.out'
+            });
+
+            // File upload preview
+            const fileInput = document.getElementById('attachment');
+            const filePreview = document.getElementById('file-preview');
+
+            fileInput.addEventListener('change', () => {
+                filePreview.innerHTML = '';
+                Array.from(fileInput.files).forEach(file => {
+                    const preview = document.createElement('div');
+                    preview.className = 'file-preview-item';
+                    preview.innerHTML = `
+                        <i class="fas fa-file"></i>
+                        <span>${file.name}</span>
+                    `;
+                    filePreview.appendChild(preview);
+                });
+            });
+
+            // Initialize map
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -34.397, lng: 150.644 }, // Replace with your coordinates
+                zoom: 15
+            });
+
+            // Form progress handling
+            const progressSteps = document.querySelectorAll('.progress-step');
+            let currentStep = 1;
+
+            function updateProgress(step) {
+                progressSteps.forEach(stepEl => {
+                    const stepNum = parseInt(stepEl.dataset.step);
+                    if (stepNum <= step) {
+                        stepEl.classList.add('active');
+                    } else {
+                        stepEl.classList.remove('active');
+                    }
+                });
+            }
+
+            // Form step navigation
+            const nextButtons = document.querySelectorAll('.next-step');
+            const prevButtons = document.querySelectorAll('.prev-step');
+            const formSteps = document.querySelectorAll('.form-step');
+
+            function updateFormSteps() {
+                formSteps.forEach(step => {
+                    const stepNumber = parseInt(step.dataset.step);
+                    if (stepNumber === currentStep) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active');
+                    }
+                });
+            }
+
+            nextButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+                    const inputs = currentStepEl.querySelectorAll('input[required], textarea[required]');
+                    let isValid = true;
+
+                    inputs.forEach(input => {
+                        if (!input.value.trim()) {
+                            isValid = false;
+                            showError(input, 'This field is required');
+                        } else {
+                            clearError(input);
+                        }
+                    });
+
+                    if (isValid && currentStep < 3) {
+                        if (currentStep === 2) {
+                            // Update review section before moving to step 3
+                            updateReviewSection();
+                        }
+                        currentStep++;
+                        updateFormSteps();
+                        updateProgress(currentStep);
+                    }
+                });
+            });
+
+            prevButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    if (currentStep > 1) {
+                        currentStep--;
+                        updateFormSteps();
+                        updateProgress(currentStep);
+                    }
+                });
+            });
+
+            function showError(input, message) {
+                const formGroup = input.closest('.fc-form-group');
+                formGroup.classList.add('error');
+                let error = formGroup.querySelector('.error-message');
+                if (!error) {
+                    error = document.createElement('div');
+                    error.className = 'error-message';
+                    formGroup.appendChild(error);
+                }
+                error.textContent = message;
+                error.style.display = 'block';
+            }
+
+            function clearError(input) {
+                const formGroup = input.closest('.fc-form-group');
+                formGroup.classList.remove('error');
+                const error = formGroup.querySelector('.error-message');
+                if (error) {
+                    error.style.display = 'none';
+                }
+            }
+
+            // Add this new function to update the review section
+            function updateReviewSection() {
+                document.getElementById('review-name').textContent = document.getElementById('name').value;
+                document.getElementById('review-email').textContent = document.getElementById('email').value;
+                document.getElementById('review-phone').textContent = document.getElementById('phone').value;
+                document.getElementById('review-message').textContent = document.getElementById('message').value;
+
+                // Update files list
+                const filesList = document.getElementById('review-files-list');
+                filesList.innerHTML = '';
+                const files = document.getElementById('attachment').files;
+
+                if (files.length > 0) {
+                    Array.from(files).forEach(file => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<i class="fas fa-file"></i> ${file.name}`;
+                        filesList.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = 'No files attached';
+                    filesList.appendChild(li);
+                }
+            }
+        });
+    </script>
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+</body>
+
+</html>

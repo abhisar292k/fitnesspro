@@ -1,0 +1,298 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Fitness Club</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4caf50;
+            --secondary-color: #45a049;
+            --text-color: #333;
+            --bg-color: #f9f9f9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+        }
+
+        .fitness-about-section {
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fitness-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .fitness-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+
+        .fitness-text {
+            flex: 1;
+        }
+
+        .fitness-image {
+            flex: 1;
+            position: relative;
+        }
+
+        .fitness-title {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .fitness-description {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+        }
+
+        .fitness-cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .fitness-cta-button:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .fitness-img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .fitness-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .fitness-icon {
+            position: absolute;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .fitness-icon-1 { top: 10%; left: 10%; }
+        .fitness-icon-2 { top: 20%; right: 10%; }
+        .fitness-icon-3 { bottom: 20%; left: 15%; }
+        .fitness-icon-4 { bottom: 10%; right: 15%; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Modern shape decorations */
+        .shape {
+            position: absolute;
+            z-index: -1;
+        }
+
+        .shape-1 {
+            top: -50px;
+            left: -50px;
+            width: 200px;
+            height: 200px;
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 50%;
+        }
+
+        .shape-2 {
+            bottom: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background-color: rgba(76, 175, 80, 0.05);
+            border-radius: 50%;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .fitness-content {
+                flex-direction: column-reverse;
+                gap: 2rem;
+            }
+
+            .fitness-title {
+                font-size: 2.5rem;
+            }
+
+            .fitness-image {
+                width: 100%;
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .fitness-img {
+                display: block;
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .back-nav {
+            position: relative;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 20px;
+            background: #4caf50;
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button i {
+            font-size: 1.1rem;
+        }
+
+        .back-button:hover {
+            background: #45a049;
+            transform: translateX(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .back-nav {
+                padding: 15px;
+            }
+
+            .back-button {
+                padding: 10px 15px;
+            }
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text);
+            font-size: 0.9rem;
+            margin-top: 40px;
+            background: #fff;
+            border-top: 1px solid #e9ecef;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Add responsive styles */
+        @media (max-width: 768px) {
+            .footer {
+                padding: 15px;
+                font-size: 0.8rem;
+                margin-top: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer {
+                padding: 12px;
+                font-size: 0.75rem;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="back-nav">
+        <a href="{% url 'index' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to Home</span>
+        </a>
+    </div>
+
+    <section class="fitness-about-section">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="fitness-container">
+            <div class="fitness-content">
+                <div class="fitness-text">
+                    <h1 class="fitness-title">Our Fitness Journey</h1>
+                    <p class="fitness-description">At Fitness Club, we empower individuals to achieve their full potential through fitness and well-being. Our journey began with a vision to create a community where every member feels inspired, supported, and motivated to reach their health and fitness goals.</p>
+                    <p class="fitness-description">With state-of-the-art facilities, expert trainers, and tailored programs for all fitness levels, we're committed to providing an unparalleled fitness experience. Whether you're starting your journey or pushing your limits, we're here to guide you every step of the way.</p>
+                    <a href="#" class="fitness-cta-button">Join Our Community</a>
+                </div>
+                <div class="fitness-image">
+                    <img src="{% static 'images/hero2.jpg' %}" alt="Fitness Journey" class="fitness-img">
+                    <i class="fas fa-dumbbell fitness-icon fitness-icon-1"></i>
+                    <i class="fas fa-heartbeat fitness-icon fitness-icon-2"></i>
+                    <i class="fas fa-running fitness-icon fitness-icon-3"></i>
+                    <i class="fas fa-bicycle fitness-icon fitness-icon-4"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <p>&copy; 2025 FitnessClub. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.fitness-title, .fitness-description, .fitness-cta-button, .fitness-img, .fitness-icon');
+            elements.forEach((el) => {
+                if (isElementInViewport(el)) {
+                    el.classList.add('show');
+                }
+            });
+        }
+
+        window.addEventListener('load', handleScrollAnimation);
+        window.addEventListener('scroll', handleScrollAnimation);
+    </script>
+</body>
+</html>

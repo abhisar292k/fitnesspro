@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-Day Workout Challenge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FFC107;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "\f015"; /* Home icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            height: 42px;
+            width: 42px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 42px;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        input:checked + .slider {
+            background-color: var(--secondary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(50px);
+            content: "\f185"; /* Sun icon */
+            color: var(--secondary-color);
+        }
+
+        .toggle-label {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 1rem;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .day-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                transparent 40%,
+                rgba(255,255,255,0.2) 40%,
+                rgba(255,255,255,0.2) 60%,
+                transparent 60%,
+                transparent
+            );
+            transform: rotate(45deg);
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .day-card:hover::before {
+            top: -10%;
+            left: -10%;
+        }
+
+        .day-header {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .day-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .workout {
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .workout-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .workout-content {
+            background-color: rgba(76, 175, 80, 0.1);
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .header p {
+                font-size: 1rem;
+            }
+            .toggle-container {
+                flex-direction: column;
+            }
+            .toggle-label {
+                margin: 0.5rem 0;
+            }
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button i {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <a href="javascript:history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Back
+    </a>
+    <div class="header">
+        <div class="header-content">
+            <h1>30-Day Workout Challenge</h1>
+            <p>Transform your body and boost your fitness with our expertly crafted workout plans</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="toggle-container">
+            <span class="toggle-label" id="toggle-label-left">Indoor</span>
+            <label class="toggle">
+                <input type="checkbox" id="workout-toggle">
+                <span class="slider"></span>
+            </label>
+            <span class="toggle-label" id="toggle-label-right">Outdoor</span>
+        </div>
+        
+        <div class="challenge-grid" id="challenge-grid">
+            <!-- Day cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        const indoorWorkouts = [
+            { exercise: "20 push-ups, 30 sit-ups, 40 squats", duration: "3 sets" },
+            { exercise: "15-minute HIIT routine", duration: "3 rounds" },
+            { exercise: "30-minute yoga session", duration: "Full body stretch" },
+            { exercise: "50 jumping jacks, 40 lunges, 30 burpees", duration: "2 sets" },
+            { exercise: "20-minute strength training with dumbbells", duration: "Upper body focus" },
+            { exercise: "25-minute Pilates workout", duration: "Core strengthening" },
+            { exercise: "Rest day", duration: "Light stretching" },
+            { exercise: "30 mountain climbers, 20 plank jacks, 10 push-ups", duration: "4 sets" },
+            { exercise: "20-minute cardio kickboxing", duration: "Full body workout" },
+            { exercise: "15-minute ab circuit", duration: "3 rounds" },
+            { exercise: "25-minute bodyweight circuit", duration: "Lower body focus" },
+            { exercise: "30-minute dance workout", duration: "Cardio blast" },
+            { exercise: "20-minute resistance band workout", duration: "Full body toning" },
+            { exercise: "Rest day", duration: "Foam rolling and stretching" },
+            { exercise: "40 squat jumps, 30 tricep dips, 20 Russian twists", duration: "3 sets" },
+            { exercise: "25-minute HIIT workout", duration: "Tabata style" },
+            { exercise: "30-minute power yoga flow", duration: "Strength and flexibility" },
+            { exercise: "20-minute stair workout", duration: "Cardio and legs" },
+            { exercise: "30-minute upper body strength training", duration: "With resistance bands" },
+            { exercise: "20-minute Pilates ring workout", duration: "Core and posture" },
+            { exercise: "Rest day", duration: "Gentle yoga and meditation" },
+            { exercise: "50 high knees, 40 sumo squats, 30 push-ups", duration: "2 sets" },
+            { exercise: "30-minute low-impact cardio", duration: "Joint-friendly workout" },
+            { exercise: "25-minute bodyweight HIIT", duration: "Full body burn" },
+            { exercise: "20-minute dumbbell circuit", duration: "Upper body and core" },
+            { exercise: "30-minute barre workout", duration: "Leg and glute focus" },
+            { exercise: "25-minute yoga with weights", duration: "Strength and balance" },
+            { exercise: "Rest day", duration: "Self-massage and stretching" },
+            { exercise: "Final challenge: 100 burpees", duration: "For time" },
+            { exercise: "30-minute full body stretching", duration: "Recovery and reflection" }
+        ];
+
+        const outdoorWorkouts = [
+            { exercise: "30-minute brisk walk", duration: "Moderate pace" },
+            { exercise: "20-minute jog, 10-minute walk", duration: "Alternating intervals" },
+            { exercise: "Outdoor yoga in the park", duration: "30 minutes" },
+            { exercise: "Hill sprints", duration: "10 x 30-second sprints" },
+            { exercise: "Bodyweight exercises at the park", duration: "20-minute circuit" },
+            { exercise: "45-minute bike ride", duration: "Steady pace" },
+            { exercise: "Rest day", duration: "Nature walk" },
+            { exercise: "Beach run and swim", duration: "20-minute run, 10-minute swim" },
+            { exercise: "Outdoor HIIT at a local track", duration: "25 minutes" },
+            { exercise: "Trail hike", duration: "60 minutes" },
+            { exercise: "Outdoor bootcamp-style workout", duration: "30 minutes" },
+            { exercise: "Sprint intervals", duration: "10 x 100m sprints" },
+            { exercise: "Park bench workout", duration: "20-minute full body" },
+            { exercise: "Rest day", duration: "Leisurely bike ride" },
+            { exercise: "Stair running at local stadium", duration: "20 minutes" },
+            { exercise: "Outdoor circuit training", duration: "30 minutes" },
+            { exercise: "Nature trail run", duration: "40 minutes" },
+            { exercise: "Outdoor plyometrics", duration: "25-minute jump training" },
+            { exercise: "Beach volleyball or frisbee", duration: "45 minutes" },
+            { exercise: "Hill cycling", duration: "30 minutes" },
+            { exercise: "Rest day", duration: "Outdoor meditation" },
+            { exercise: "Park interval training", duration: "30 minutes" },
+            { exercise: "Outdoor yoga and meditation", duration: "45 minutes" },
+            { exercise: "Beach run", duration: "30 minutes" },
+            { exercise: "Outdoor bodyweight circuit", duration: "25 minutes" },
+            { exercise: "Trail bike ride", duration: "60 minutes" },
+            { exercise: "Outdoor Pilates in the park", duration: "30 minutes" },
+            { exercise: "Rest day", duration: "Nature photography walk" },
+            { exercise: "Final challenge: 5k run", duration: "Timed event" },
+            { exercise: "Outdoor stretching and reflection", duration: "30 minutes" }
+        ];
+
+        const toggleSwitch = document.getElementById('workout-toggle');
+        const toggleLabelLeft = document.getElementById('toggle-label-left');
+        const toggleLabelRight = document.getElementById('toggle-label-right');
+        const challengeGrid = document.getElementById('challenge-grid');
+
+        function createDayCard(day, workout) {
+            const card = document.createElement('div');
+            card.className = 'day-card';
+            card.innerHTML = `
+                <div class="day-header">
+                    <h2>Day ${day}</h2>
+                </div>
+                <div class="workout">
+                    <span class="workout-title"><i class="fas fa-dumbbell workout-icon"></i> Workout</span>
+                    <div class="workout-content">${workout.exercise}</div>
+                </div>
+                <div class="workout">
+                    <span class="workout-title"><i class="fas fa-clock workout-icon"></i> Duration</span>
+                    <div class="workout-content">${workout.duration}</div>
+                </div>
+            `;
+            return card;
+        }
+
+        function updateWorkoutPlan() {
+            const isIndoor = !toggleSwitch.checked;
+            const workouts = isIndoor ? indoorWorkouts : outdoorWorkouts;
+            
+            challengeGrid.innerHTML = '';
+            for (let i = 0; i < 30; i++) {
+                const dayCard = createDayCard(i + 1, workouts[i]);
+                challengeGrid.appendChild(dayCard);
+            }
+
+            toggleLabelLeft.style.fontWeight = isIndoor ? 'bold' : 'normal';
+            toggleLabelRight.style.fontWeight = isIndoor ? 'normal' : 'bold';
+        }
+
+        toggleSwitch.addEventListener('change', updateWorkoutPlan);
+
+        // Initial render
+        updateWorkoutPlan();
+    </script>
+</body>
+</html>

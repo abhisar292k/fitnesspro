@@ -1,0 +1,1495 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fitness Club - Professional Health & Wellness</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="contact-info">
+        <span>Contact: +91 9874 456 123</span>
+      </div>
+      <ul>
+        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="#"><i class="far fa-envelope"></i></a></li>
+        <li>
+          <a href="{% url 'login' %}" class="login-link">
+            <i class="fas fa-user"></i>
+            <span class="login-text">Login / Signup</span>
+        </a>
+        
+        </li>
+      </ul>
+    </div>
+    <header>
+      <div class="logo">Fitness <span>Club</span></div>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'aboutus' %}">About</a></li>
+          <li><a href="{% url 'services' %}">Services</a></li>
+          <li><a href="{% url 'blog' %}">Blog</a></li>
+          <li class="dropdown">
+            <a href="{% url 'memberships' %}" class="dropbtn">Membership</a>
+            <div class="dropdown-content">
+              <a href="{% url 'starterplan' %}">Starter</a>
+              <a href="{% url 'achieverplan' %}">Achiever</a>
+              <a href="{% url 'transformerplan' %}">Transformer</a>
+              <a href="{% url 'eliteplan' %}">Elite</a>
+            </div>
+          </li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+          <li class="dropdown dropdown-shop">
+            <a href="{% url 'shop' %}" class="dropbtn">Shop</a>
+            <div class="dropdown-content">
+              <a href="#">Supplements</a>
+              <a href="#">Fitness Gear</a>
+              <a href="#">Apparel</a>
+            </div>
+          </li>
+        </ul>
+        
+      </nav>
+    </header>
+    <div class="carousel-container">
+      <div class="carousel-slide active">
+        <img src="{% static 'images/1.jpg' %}" alt="Image 1" />
+        <div class="slide-text">
+          <h2>
+            IT'S GYM TIME. LET'S GO<br /><span>WE ARE READY TO FIT YOU</span>
+          </h2>
+          <p>Your journey to a healthier lifestyle starts here.</p>
+          <a href="{% url 'signup' %}" class="join-us-btn">Join Us</a>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="{% static 'images/hero2.jpg' %}" alt="Image 2" />
+        <div class="slide-text">
+          <h2>TRANSFORM YOUR BODY<br /><span>ELEVATE YOUR MIND</span></h2>
+          <p>Experience the power of a balanced fitness routine.</p>
+          <a href="{% url 'signup' %}" class="join-us-btn">Start Now</a>
+        </div>
+      </div>
+      <div class="carousel-slide">
+        <img src="{% static 'images/hero.jpg' %}" alt="Image 3" />
+        <div class="slide-text">
+          <h2>STRENGTH IN COMMUNITY<br /><span>FITNESS FOR EVERYONE</span></h2>
+          <p>Join our supportive community and achieve your goals together.</p>
+          <a href="{% url 'signup' %}" class="join-us-btn">Join Our Community</a>
+        </div>
+      </div>
+      <div class="carousel-nav">
+        <div class="carousel-nav-btn active"></div>
+        <div class="carousel-nav-btn"></div>
+        <div class="carousel-nav-btn"></div>
+      </div>
+    </div>
+    
+    <section class="free-trial-section">
+      <div class="fitness-bg"></div>
+      <div class="limited-time-banner">EXCLUSIVE OFFER</div>
+      <div class="container">
+        <div class="free-trial-content">
+          <div class="free-trial-text">
+            <h2>Unleash Your Potential</h2>
+            <p>
+              Experience the ultimate fitness journey with our exclusive 7-day
+              free trial. Transform your body, mind, and life.
+            </p>
+            <ul class="feature-list">
+              <li>
+                <i class="fas fa-dumbbell"></i>&nbsp;State-of-the-art equipment
+              </li>
+              <li>
+                <i class="fas fa-user-friends"></i>&nbsp; Expert personal
+                trainers
+              </li>
+              <li>
+                <i class="fas fa-heartbeat"></i>&nbsp; Diverse group fitness
+                classes
+              </li>
+            </ul>
+          </div>
+          <div class="free-trial-form">
+            <h3>Start Your Transformation</h3>
+            <form id="freeTrialForm">
+              <div class="form-group">
+                <label for="name">Your Name</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Your Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Your Phone</label>
+                <input type="tel" id="phone" name="phone" required />
+              </div>
+              <button type="submit" class="submit-btn">
+                Claim Your Free Trial
+              </button>
+            </form>
+            <div class="success-message" id="successMessage">
+              Congratulations! You've successfully claimed your free trial. Get
+              ready to transform your life at our state-of-the-art gym!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- plan sction -->
+    <section class="membership-plans">
+      <div class="background-animation-new">
+        <div class="shape-new shape1-new"></div>
+        <div class="shape-new shape2-new"></div>
+        <div class="shape-new shape3-new"></div>
+      </div>
+      <div class="container-new">
+        <h2 class="animate-in-new">Choose Your Path</h2>
+        <div class="plan-cards-new">
+          <div
+            class="plan-card-new animate-in-new"
+            style="animation-delay: 0.2s"
+          >
+            <h3>Starter</h3>
+            <p class="price-new">₹700 <span>/month</span></p>
+            <ul>
+              <li><i class="fas fa-dumbbell icon-new"></i> Full Gym Access</li>
+              <li>
+                <i class="fas fa-user-friends icon-new"></i> 1 Personal Training
+                Session
+              </li>
+              <li><i class="fas fa-lock icon-new"></i> Locker Access</li>
+            </ul>
+            <a href="{% url 'starterplan' %}" class="view-benefit-btn-new">Get Started</a>
+
+          </div>
+          <div
+            class="plan-card-new animate-in-new"
+            style="animation-delay: 0.4s"
+          >
+            <h3>Achiever</h3>
+            <p class="price-new">₹1500 <span>/3 months</span></p>
+            <ul>
+              <li><i class="fas fa-dumbbell icon-new"></i> Full Gym Access</li>
+              <li>
+                <i class="fas fa-user-friends icon-new"></i> 3 Personal Training
+                Sessions
+              </li>
+              <li>
+                <i class="fas fa-apple-alt icon-new"></i> Nutrition Consultation
+              </li>
+            </ul>
+            <a href="{% url 'achieverplan' %}" class="view-benefit-btn-new">Level Up</a>
+
+          </div>
+          <div
+            class="plan-card-new animate-in-new"
+            style="animation-delay: 0.6s"
+          >
+            <div class="popular-new">Best Value</div>
+            <h3>Transformer</h3>
+            <p class="price-new">₹2500 <span>/6 months</span></p>
+            <ul>
+              <li><i class="fas fa-dumbbell icon-new"></i> Full Gym Access</li>
+              <li>
+                <i class="fas fa-user-friends icon-new"></i> Weekly PT Sessions
+              </li>
+              <li>
+                <i class="fas fa-heartbeat icon-new"></i> Monthly Fitness
+                Assessment
+              </li>
+            </ul>
+            <a href="{% url 'transformerplan' %}" class="view-benefit-btn-new">Transform Now</a>
+
+          </div>
+          <div
+            class="plan-card-new animate-in-new"
+            style="animation-delay: 0.8s"
+          >
+            <h3>Elite</h3>
+            <p class="price-new">₹4000 <span>/year</span></p>
+            <ul>
+              <li><i class="fas fa-dumbbell icon-new"></i> 24/7 Gym Access</li>
+              <li>
+                <i class="fas fa-user-friends icon-new"></i> Unlimited PT
+                Sessions
+              </li>
+              <li>
+                <i class="fas fa-crown icon-new"></i> VIP Amenities Access
+              </li>
+            </ul>
+            <a href="{% url 'eliteplan' %}" class="view-benefit-btn-new">Go Elite</a>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- plan section end -->
+    <!-- challenge section -->
+    {% load static %}
+    <section class="challenge-section-new">
+      <div class="container-new">
+        <h2 class="challenge-heading-new">Join Our Fitness Challenges</h2>
+        <div class="challenge-cards-new">
+          <div class="challenge-card-new">
+            <img
+              src="{% static 'images/30days.jpg' %}"
+              alt="Challenge 1"
+              class="challenge-image-new"
+            />
+            <div class="challenge-details-new">
+              <h3 class="challenge-title-new">30-Day Fitness Challenge</h3>
+              <p class="challenge-description-new">
+                Take on our 30-day fitness challenge and transform your body and
+                mind with daily workouts and nutrition tips.
+              </p>
+              <a href="{% url '30days' %}" class="challenge-button-new">Join Now</a>
+            </div>
+          </div>
+          <div class="challenge-card-new">
+            <img
+              src="{% static 'images/healthyeating.jpg' %}"
+              alt="Challenge 2"
+              class="challenge-image-new"
+            />
+            <div class="challenge-details-new">
+              <h3 class="challenge-title-new">Healthy Eating Challenge</h3>
+              <p class="challenge-description-new">
+                Commit to healthier eating habits with our healthy eating
+                challenge featuring meal plans, recipes, and nutrition tips.
+              </p>
+              <a href="{% url 'eatingchallenge' %}" class="challenge-button-new">Join Now</a>
+            </div>
+          </div>
+          <div class="challenge-card-new">
+            <img
+              src="{% static 'images/cardio.jpg' %}"
+              alt="Challenge 3"
+              class="challenge-image-new"
+            />
+            <div class="challenge-details-new">
+              <h3 class="challenge-title-new">Cardio Challenge</h3>
+              <p class="challenge-description-new">
+                Challenge yourself with our cardio challenge and improve your
+                cardiovascular health with fun and effective workouts.
+              </p>
+              <a href="{% url 'cardio' %}" class="challenge-button-new">Join Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- challenge section end -->
+    <h1 class="heading">Inspiring Fitness Journeys</h1>
+    <div class="slider-container">
+      <div class="video-container">
+        <!-- Video items will be dynamically added here -->
+      </div>
+      <div class="controls">
+        <!-- Dots will be dynamically added here -->
+      </div>
+      <div class="arrow arrow-left"></div>
+      <div class="arrow arrow-right"></div>
+    </div>
+    <script>
+      // Initialize GSAP
+      gsap.registerPlugin(ScrollTrigger);
+
+      const sliderContainer = document.querySelector(".slider-container");
+      const videoContainer = document.querySelector(".video-container");
+      const controls = document.querySelector(".controls");
+      const arrowLeft = document.querySelector(".arrow-left");
+      const arrowRight = document.querySelector(".arrow-right");
+
+      let currentIndex = 0;
+      let slideAmount = 1;
+
+      const videos = [
+        {
+          src: "{% static 'videos/video1.mp4' %} ",
+          title: "Sarah's Transformation",
+          description: "Lost 30 lbs in 3 months",
+          user: { name: "Sarah", avatar: "/api/placeholder/50/50" },
+          tags: ["Weight Loss", "Nutrition"],
+        },
+        {
+          src: "{% static 'videos/video2.mp4' %}",
+          title: "John's Muscle Journey",
+          description: "Gained 15 lbs of muscle in 6 months",
+          user: { name: "John", avatar: "/api/placeholder/50/50" },
+          tags: ["Muscle Gain", "Strength Training"],
+        },
+        {
+          src: "/videos/video3.mp4",
+          title: "Emily's Yoga Progress",
+          description: "Mastered advanced poses in 1 year",
+          user: { name: "Emily", avatar: "/api/placeholder/50/50" },
+          tags: ["Yoga", "Flexibility"],
+        },
+        {
+          src: "/videos/video4.mp4",
+          title: "Mike's Marathon Success",
+          description: "Completed first marathon after 6 months of training",
+          user: { name: "Mike", avatar: "/api/placeholder/50/50" },
+          tags: ["Running", "Endurance"],
+        },
+        {
+          src: "/videos/video5.mp4",
+          title: "Lisa's HIIT Results",
+          description: "Improved overall fitness in just 8 weeks",
+          user: { name: "Lisa", avatar: "/api/placeholder/50/50" },
+          tags: ["HIIT", "Cardio"],
+        },
+        {
+          src: "/videos/video6.mp4",
+          title: "Tom's Calisthenics Journey",
+          description: "Achieved muscle-up after 3 months of practice",
+          user: { name: "Tom", avatar: "/api/placeholder/50/50" },
+          tags: ["Calisthenics", "Bodyweight"],
+        },
+      ];
+
+      function createVideoItems() {
+        videos.forEach((video, index) => {
+          const videoWrapper = document.createElement("div");
+          videoWrapper.className = "video-wrapper";
+          videoWrapper.innerHTML = `
+      <div class="video-item">
+        <video src="${video.src}" loop></video>
+        <div class="user-info">
+          <img src="${video.user.avatar}" alt="${
+            video.user.name
+          }" class="user-avatar">
+          <span class="user-name">${video.user.name}</span>
+        </div>
+        <div class="video-info">
+          <h3>${video.title}</h3>
+          <p>${video.description}</p>
+        </div>
+        <div class="video-tags">
+          ${video.tags
+            .map((tag) => `<span class="video-tag">${tag}</span>`)
+            .join("")}
+        </div>
+        <div class="video-controls">
+          <button class="play-pause" aria-label="Play/Pause"></button>
+          <button class="mute-unmute" aria-label="Mute/Unmute"></button>
+        </div>
+        <div class="progress-bar">
+          <div class="progress"></div>
+        </div>
+        <div class="time-indicator">0:00 / 0:00</div>
+        <div class="reactions">
+          <button class="reaction-btn" data-reaction="like">👍</button>
+          <span class="reaction-count">0</span>
+          <button class="reaction-btn" data-reaction="love">❤️</button>
+          <span class="reaction-count">0</span>
+        </div>
+        <button class="share-button" aria-label="Share">
+          <i class="fas fa-share-alt"></i>
+        </button>
+      </div>
+    `;
+
+          videoContainer.appendChild(videoWrapper);
+
+          const dot = document.createElement("span");
+          dot.className = "dot";
+          dot.addEventListener("click", () => goToSlide(index));
+          controls.appendChild(dot);
+
+          initializeVideoControls(videoWrapper, index);
+        });
+      }
+
+      function initializeVideoControls(videoWrapper, index) {
+        const videoElement = videoWrapper.querySelector("video");
+        const playPauseButton = videoWrapper.querySelector(".play-pause");
+        const muteUnmuteButton = videoWrapper.querySelector(".mute-unmute");
+        const progressBar = videoWrapper.querySelector(".progress");
+        const timeIndicator = videoWrapper.querySelector(".time-indicator");
+        const reactionButtons = videoWrapper.querySelectorAll(".reaction-btn");
+        const shareButton = videoWrapper.querySelector(".share-button");
+
+        playPauseButton.addEventListener("click", () =>
+          togglePlayPause(videoElement, playPauseButton)
+        );
+        muteUnmuteButton.addEventListener("click", () =>
+          toggleMute(videoElement, muteUnmuteButton)
+        );
+        videoElement.addEventListener("timeupdate", () =>
+          updateProgressAndTime(videoElement, progressBar, timeIndicator)
+        );
+
+        videoElement.addEventListener("ended", () => {
+          playNextVideo(index);
+        });
+
+        reactionButtons.forEach((button) => {
+          button.addEventListener("click", () =>
+            handleReaction(button, videoWrapper)
+          );
+        });
+
+        shareButton.addEventListener("click", () => shareVideo(videos[index]));
+      }
+
+      function playNextVideo(currentIndex) {
+        const nextIndex = (currentIndex + 1) % videos.length;
+        goToSlide(nextIndex);
+      }
+
+      function togglePlayPause(video, button) {
+        if (video.paused) {
+          video.play();
+          button.classList.add("playing");
+        } else {
+          video.pause();
+          button.classList.remove("playing");
+        }
+      }
+
+      function toggleMute(video, button) {
+        video.muted = !video.muted;
+        button.classList.toggle("muted", video.muted);
+      }
+
+      function updateProgressAndTime(video, progressBar, timeIndicator) {
+        const progress = (video.currentTime / video.duration) * 100;
+        progressBar.style.width = `${progress}%`;
+        timeIndicator.textContent = `${formatTime(
+          video.currentTime
+        )} / ${formatTime(video.duration)}`;
+      }
+
+      function handleReaction(button, videoWrapper) {
+        const reactionCount = button.nextElementSibling;
+        let count = parseInt(reactionCount.textContent, 10);
+
+        if (button.classList.contains("active")) {
+          count--;
+          button.classList.remove("active");
+        } else {
+          count++;
+          button.classList.add("active");
+        }
+
+        reactionCount.textContent = count;
+        animateReaction(button, videoWrapper);
+
+        sendReactionToServer(
+          button.dataset.reaction,
+          videos[currentIndex].title,
+          button.classList.contains("active")
+        );
+      }
+
+      function sendReactionToServer(reactionType, videoTitle, isActive) {
+        console.log(
+          `Sending ${
+            isActive ? "add" : "remove"
+          } ${reactionType} reaction for video: ${videoTitle}`
+        );
+        // Implement your API call here
+      }
+
+      function animateReaction(button, videoWrapper) {
+        const reaction = document.createElement("span");
+        reaction.textContent = button.textContent;
+        reaction.className = "floating-reaction";
+        videoWrapper.appendChild(reaction);
+
+        gsap.to(reaction, {
+          y: -100,
+          opacity: 0,
+          duration: 1,
+          ease: "power2.out",
+          onComplete: () => reaction.remove(),
+        });
+      }
+
+      function shareVideo(video) {
+        const shareUrl = `https://yourwebsite.com/share/${encodeURIComponent(
+          video.title
+        )}`;
+        const shareText = `Check out this inspiring fitness journey: ${video.title}`;
+
+        if (navigator.share) {
+          navigator
+            .share({
+              title: video.title,
+              text: shareText,
+              url: shareUrl,
+            })
+            .then(() => {
+              console.log("Shared successfully");
+            })
+            .catch((error) => {
+              console.error("Error sharing:", error);
+            });
+        } else {
+          prompt("Copy this link to share:", `${shareText}\n${shareUrl}`);
+        }
+      }
+
+      function formatTime(time) {
+        const minutes = Math.floor(time / 60);
+        const seconds = Math.floor(time % 60);
+        return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+      }
+
+      function updateSlideAmount() {
+        if (window.innerWidth >= 1024) {
+          slideAmount = 3;
+        } else if (window.innerWidth >= 768) {
+          slideAmount = 2;
+        } else {
+          slideAmount = 1;
+        }
+        goToSlide(currentIndex);
+      }
+
+      function goToSlide(index) {
+        currentIndex = index;
+        const offset = -100 * Math.floor(currentIndex / slideAmount);
+        gsap.to(videoContainer, {
+          x: `${offset}%`,
+          duration: 0.5,
+          ease: "power2.out",
+        });
+        updateDots();
+        updateVideos();
+      }
+
+      function updateDots() {
+        const dots = document.querySelectorAll(".dot");
+        dots.forEach((dot, index) => {
+          dot.classList.toggle(
+            "active",
+            Math.floor(index / slideAmount) ===
+              Math.floor(currentIndex / slideAmount)
+          );
+        });
+      }
+
+      function updateVideos() {
+        const videoItems = document.querySelectorAll(".video-item");
+        videoItems.forEach((item, index) => {
+          const video = item.querySelector("video");
+          const playPauseButton = item.querySelector(".play-pause");
+          if (
+            Math.floor(index / slideAmount) ===
+            Math.floor(currentIndex / slideAmount)
+          ) {
+            video.play();
+            playPauseButton.classList.add("playing");
+            gsap.to(item, { opacity: 1, scale: 1, duration: 0.3 });
+          } else {
+            video.pause();
+            video.currentTime = 0;
+            playPauseButton.classList.remove("playing");
+            gsap.to(item, { opacity: 0.7, scale: 0.95, duration: 0.3 });
+          }
+        });
+      }
+
+      arrowLeft.addEventListener("click", () => {
+        currentIndex =
+          (currentIndex - slideAmount + videos.length) % videos.length;
+        goToSlide(currentIndex);
+      });
+
+      arrowRight.addEventListener("click", () => {
+        currentIndex = (currentIndex + slideAmount) % videos.length;
+        goToSlide(currentIndex);
+      });
+
+      window.addEventListener("resize", updateSlideAmount);
+
+      // Initialize the slider
+      createVideoItems();
+      updateSlideAmount();
+
+      // Add scroll-triggered animations
+      gsap.utils.toArray(".video-wrapper").forEach((wrapper, i) => {
+        ScrollTrigger.create({
+          trigger: wrapper,
+          start: "top bottom-=100", 
+          onEnter: () => {
+            gsap.fromTo(
+              wrapper,
+              { y: 50, opacity: 0 },
+              { y: 0, opacity: 1, duration: 0.5, delay: i * 0.1 }
+            );
+          },
+          once: true,
+        });
+      });
+
+      console.log("Enhanced Fitness Video Slider initialized successfully!");
+    </script>
+     <!-- testimonial -->
+     <section class="et-section">
+      <div class="et-container">
+          <div class="et-header">
+              <h2 class="et-title">Elite Trainers</h2>
+              <p class="et-description">Meet our exceptional team of fitness experts dedicated to helping you achieve your health and wellness goals.</p>
+          </div>
+          <div class="et-filter-container">
+            <button class="et-filter-btn" data-filter="all">All Trainers</button>
+            <button class="et-filter-btn" data-filter="strength">Strength</button>
+            <button class="et-filter-btn" data-filter="cardio">Cardio</button>
+            <button class="et-filter-btn" data-filter="yoga">Yoga</button>
+            <button class="et-filter-btn" data-filter="nutrition">Nutrition</button>
+          </div>
+          <div class="et-trainer-grid">
+              <!-- Strength Trainers -->
+              <div class="et-trainer-card" data-category="strength">
+                  <div class="et-trainer-image">
+                    <img src="{% static 'images/tra1male.jpg' %}" alt="Trainer 1" />
+
+                      <div class="et-trainer-overlay">
+                          <h3 class="et-trainer-name">Arjun Patel</h3>
+                          <p class="et-trainer-specialty">Strength & Powerlifting</p>
+                      </div>
+                  </div>
+                  <div class="et-trainer-bio">
+                      <blockquote class="et-trainer-quote">
+                          "Strength is not just about lifting weights, it's about lifting yourself up."
+                      </blockquote>
+                      <p class="et-trainer-description">
+                          Arjun is a certified strength coach specializing in powerlifting. With his guidance, you'll unlock your true strength potential.
+                      </p>
+                      <div class="et-trainer-stats">
+                          <div class="et-stat">
+                              <p class="et-stat-value">150+</p>
+                              <p class="et-stat-label">Clients</p>
+                          </div>
+                          <div class="et-stat">
+                              <p class="et-stat-value">12</p>
+                              <p class="et-stat-label">Years Experience</p>
+                          </div>
+                      </div>
+                      <div class="et-social-links">
+                          <a href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a href="#"><i class="fab fa-instagram"></i></a>
+                          <a href="#"><i class="fab fa-twitter"></i></a>
+                      </div>
+                  </div>
+                  <button class="et-book-session-btn">Book a Session</button>
+              </div>
+          
+              <div class="et-trainer-card" data-category="strength">
+                  <div class="et-trainer-image">
+                    <img src="{% static 'images/femaletrainer.jpg' %}" alt="Trainer 2" />
+
+                      <div class="et-trainer-overlay">
+                          <h3 class="et-trainer-name">Riya Kapoor</h3>
+                          <p class="et-trainer-specialty">Functional Strength</p>
+                      </div>
+                  </div>
+                  <div class="et-trainer-bio">
+                      <blockquote class="et-trainer-quote">
+                          "Build strength that translates to real-life activities."
+                      </blockquote>
+                      <p class="et-trainer-description">
+                          Riya focuses on functional strength training, helping you develop strength that enhances your daily life and overall fitness.
+                      </p>
+                      <div class="et-trainer-stats">
+                          <div class="et-stat">
+                              <p class="et-stat-value">120+</p>
+                              <p class="et-stat-label">Clients</p>
+                          </div>
+                          <div class="et-stat">
+                              <p class="et-stat-value">8</p>
+                              <p class="et-stat-label">Years Experience</p>
+                          </div>
+                      </div>
+                      <div class="et-social-links">
+                          <a href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a href="#"><i class="fab fa-instagram"></i></a>
+                          <a href="#"><i class="fab fa-twitter"></i></a>
+                      </div>
+                  </div>
+                  <button class="et-book-session-btn">Book a Session</button>
+              </div>
+          
+              <!-- Cardio Trainers -->
+              <div class="et-trainer-card" data-category="cardio">
+                  <div class="et-trainer-image">
+                    <img src="{% static 'images/tra2male.jpg' %}" alt="Trainer 3" />
+                      <div class="et-trainer-overlay">
+                          <h3 class="et-trainer-name">Vikram Malhotra</h3>
+                          <p class="et-trainer-specialty">HIIT & Cardio</p>
+                      </div>
+                  </div>
+                  <div class="et-trainer-bio">
+                      <blockquote class="et-trainer-quote">
+                          "Push your limits, and your heart will thank you."
+                      </blockquote>
+                      <p class="et-trainer-description">
+                          Vikram specializes in high-intensity interval training (HIIT) and cardio workouts that will boost your endurance and metabolism.
+                      </p>
+                      <div class="et-trainer-stats">
+                          <div class="et-stat">
+                              <p class="et-stat-value">200+</p>
+                              <p class="et-stat-label">Clients</p>
+                          </div>
+                          <div class="et-stat">
+                              <p class="et-stat-value">10</p>
+                              <p class="et-stat-label">Years Experience</p>
+                          </div>
+                      </div>
+                      <div class="et-social-links">
+                          <a href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a href="#"><i class="fab fa-instagram"></i></a>
+                          <a href="#"><i class="fab fa-twitter"></i></a>
+                      </div>
+                  </div>
+                  <button class="et-book-session-btn">Book a Session</button>
+              </div>
+          
+              <div class="et-trainer-card" data-category="cardio">
+                  <div class="et-trainer-image">
+                    <img src="{% static 'images/femaletrainer2.jpg' %}" alt="Trainer 4" />
+                      <div class="et-trainer-overlay">
+                          <h3 class="et-trainer-name">Ananya Sharma</h3>
+                          <p class="et-trainer-specialty">Cardio Dance</p>
+                      </div>
+                  </div>
+                  <div class="et-trainer-bio">
+                      <blockquote class="et-trainer-quote">
+                          "Dance your way to fitness and joy!"
+                      </blockquote>
+                      <p class="et-trainer-description">
+                          Ananya combines cardio workouts with dance, making your fitness journey fun and effective. Get ready to groove and improve!
+                      </p>
+                      <div class="et-trainer-stats">
+                          <div class="et-stat">
+                              <p class="et-stat-value">180+</p>
+                              <p class="et-stat-label">Clients</p>
+                          </div>
+                          <div class="et-stat">
+                              <p class="et-stat-value">7</p>
+                              <p class="et-stat-label">Years Experience</p>
+                          </div>
+                      </div>
+                      <div class="et-social-links">
+                          <a href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a href="#"><i class="fab fa-instagram"></i></a>
+                          <a href="#"><i class="fab fa-twitter"></i></a>
+                      </div>
+                  </div>
+                  <button class="et-book-session-btn">Book a Session</button>
+              </div>
+          
+              <!-- Yoga Trainers -->
+              <div class="et-trainer-card" data-category="yoga">
+                  <div class="et-trainer-image">
+                    <img src="{% static 'images/tra3male.jpg' %}" alt="Trainer 5" />
+                      <div class="et-trainer-overlay">
+                          <h3 class="et-trainer-name">Aditya Gupta</h3>
+                          <p class="et-trainer-specialty">Hatha Yoga</p>
+                      </div>
+                  </div>
+                  <div class="et-trainer-bio">
+                      <blockquote class="et-trainer-quote">
+                          "Yoga is the journey of the self, through the self, to the self."
+                      </blockquote>
+                      <p class="et-trainer-description">
+                          Aditya is an experienced Hatha Yoga instructor, focusing on balancing body and mind through postures and breathing techniques.
+                      </p>
+                      <div class="et-trainer-stats">
+                          <div class="et-stat">
+                              <p class="et-stat-value">250+</p>
+                              <p class="et-stat-label">Clients</p>
+                          </div>
+                          <div class="et-stat">
+                              <p class="et-stat-value">15</p>
+                              <p class="et-stat-label">Years Experience</p>
+                          </div>
+                      </div>
+                      <div class="et-social-links">
+                          <a href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a href="#"><i class="fab fa-instagram"></i></a>
+                          <a href="#"><i class="fab fa-twitter"></i></a>
+                      </div>
+                  </div>
+                  <button class="et-book-session-btn">Book a Session</button>
+              </div>
+          
+              <div class="et-trainer-card" data-category="yoga">
+                  <div class="et-trainer-image">
+                    <img src="{% static 'images/femaletrainer3.jpg' %}" alt="Trainer 6" />
+                      <div class="et-trainer-overlay">
+                          <h3 class="et-trainer-name">Priya Reddy</h3>
+                          <p class="et-trainer-specialty">Vinyasa Flow</p>
+                      </div>
+                  </div>
+                  <div class="et-trainer-bio">
+                      <blockquote class="et-trainer-quote">
+                          "Flow with your breath, and watch your practice transform."
+                      </blockquote>
+                      <p class="et-trainer-description">
+                          Priya specializes in Vinyasa Flow, guiding you through dynamic sequences that synchronize movement with breath.
+                      </p>
+                      <div class="et-trainer-stats">
+                          <div class="et-stat">
+                              <p class="et-stat-value">200+</p>
+                              <p class="et-stat-label">Clients</p>
+                          </div>
+                          <div class="et-stat">
+                              <p class="et-stat-value">9</p>
+                              <p class="et-stat-label">Years Experience</p>
+                          </div>
+                      </div>
+                      <div class="et-social-links">
+                          <a href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a href="#"><i class="fab fa-instagram"></i></a>
+                          <a href="#"><i class="fab fa-twitter"></i></a>
+                      </div>
+                  </div>
+                  <button class="et-book-session-btn">Book a Session</button>
+              </div>
+          
+              <!-- Nutrition Trainers -->
+              <div class="et-trainer-card" data-category="nutrition">
+                  <div class="et-trainer-image">
+                    <img src="{% static 'images/femaletrainer4.jpg' %}" alt="Trainer 7" />
+                      <div class="et-trainer-overlay">
+                          <h3 class="et-trainer-name">Nisha Mehta</h3>
+                          <p class="et-trainer-specialty">Holistic Nutrition</p>
+                      </div>
+                  </div>
+                  <div class="et-trainer-bio">
+                      <blockquote class="et-trainer-quote">
+                          "Let food be thy medicine and medicine be thy food."
+                      </blockquote>
+                      <p class="et-trainer-description">
+                          Nisha is a holistic nutritionist who believes in the power of whole foods to nourish both body and mind.
+                      </p>
+                      <div class="et-trainer-stats">
+                          <div class="et-stat">
+                              <p class="et-stat-value">300+</p>
+                              <p class="et-stat-label">Clients</p>
+                          </div>
+                          <div class="et-stat">
+                              <p class="et-stat-value">12</p>
+                              <p class="et-stat-label">Years Experience</p>
+                          </div>
+                      </div>
+                      <div class="et-social-links">
+                          <a href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a href="#"><i class="fab fa-instagram"></i></a>
+                          <a href="#"><i class="fab fa-twitter"></i></a>
+                      </div>
+                  </div>
+                  <button class="et-book-session-btn">Book a Session</button>
+              </div>
+          
+              <div class="et-trainer-card" data-category="nutrition">
+                  <div class="et-trainer-image">
+                    <img src="{% static 'images/tra4male.jpg' %}" alt="Trainer 8" />
+                      <div class="et-trainer-overlay">
+                          <h3 class="et-trainer-name">Rahul Verma</h3>
+                          <p class="et-trainer-specialty">Sports Nutrition</p>
+                      </div>
+                  </div>
+                  <div class="et-trainer-bio">
+                      <blockquote class="et-trainer-quote">
+                          "Fuel your body right, and watch your performance soar."
+                      </blockquote>
+                      <p class="et-trainer-description">
+                          Rahul specializes in sports nutrition, helping athletes and fitness enthusiasts optimize their diet for peak performance.
+                      </p>
+                      <div class="et-trainer-stats">
+                          <div class="et-stat">
+                              <p class="et-stat-value">150+</p>
+                              <p class="et-stat-label">Clients</p>
+                          </div>
+                          <div class="et-stat">
+                              <p class="et-stat-value">8</p>
+                              <p class="et-stat-label">Years Experience</p>
+                          </div>
+                      </div>
+                      <div class="et-social-links">
+                          <a href="#"><i class="fab fa-facebook-f"></i></a>
+                          <a href="#"><i class="fab fa-instagram"></i></a>
+                          <a href="#"><i class="fab fa-twitter"></i></a>
+                      </div>
+                  </div>
+                  <button class="et-book-session-btn">Book a Session</button>
+              </div>
+          </div>
+      </div>
+  </section>
+    
+    <!-- testimonial start -->
+   
+  <section class="testimonial-section">
+    <div class="testimonial-container">
+      <h2 class="section-title">Real Results, Real Stories</h2>
+      <div class="testimonial-carousel" id="testimonial-carousel">
+        <!-- Cards will be dynamically inserted here -->
+      </div>
+      <div class="testimonial-nav">
+        <button class="nav-btn prev" aria-label="Previous testimonials">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="nav-btn next" aria-label="Next testimonials">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const testimonials = [
+        {
+          name: "Sarah Johnson",
+          image: "{% static 'images/review1.jpg' %}",
+          achievement: "Lost 50 lbs in 6 months",
+          testimonial: "This gym changed my life! The trainers here don't just focus on workouts, they teach you how to transform your lifestyle. I've never felt healthier or more confident.",
+          stats: [
+            { value: "50", label: "Lbs Lost" },
+            { value: "6", label: "Months" },
+            { value: "100%", label: "Confidence" }
+          ]
+        },
+        {
+          name: "Mike Chen",
+          image: "{% static 'images/review2.jpg' %}",
+          achievement: "Gained 20 lbs of muscle",
+          testimonial: "As a hardgainer, I struggled to build muscle for years. The personalized nutrition plan and strength training program here transformed my physique. I finally feel strong and capable!",
+          stats: [
+            { value: "20", label: "Lbs Muscle" },
+            { value: "8", label: "Months" },
+            { value: "250", label: "Bench Press" }
+          ]
+        },
+        {
+          name: "Emily Rodriguez",
+          image: "{% static 'images/review3.jpg' %}",
+          achievement: "Completed first triathlon",
+          testimonial: "I never thought I'd be an athlete, but the support and training I received here made me believe in myself. Completing my first triathlon was a dream come true. This gym doesn't just change bodies, it changes lives.",
+          stats: [
+            { value: "70.3", label: "Miles" },
+            { value: "5:42", label: "Time" },
+            { value: "1", label: "Life Changed" }
+          ]
+        },
+        {
+          name: "David Lee",
+          image: "{% static 'images/review3.jpg' %}",
+          achievement: "Overcame chronic back pain",
+          testimonial: "After years of struggling with back pain, the specialized training and rehabilitation programs here have given me a new lease on life. I'm pain-free and stronger than ever!",
+          stats: [
+            { value: "0", label: "Pain Level" },
+            { value: "12", label: "Months" },
+            { value: "100%", label: "Activity" }
+          ]
+        },
+        {
+          name: "Lisa Thompson",
+          image: "{% static 'images/review2.jpg' %}",
+          achievement: "Ran first marathon at 50",
+          testimonial: "I always thought marathons were for younger people. The trainers here helped me prove myself wrong. Age is just a number when you have the right support and determination!",
+          stats: [
+            { value: "26.2", label: "Miles" },
+            { value: "50", label: "Age" },
+            { value: "1", label: "Dream" }
+          ]
+        }
+      ];
+    
+      const testimonialCarousel = document.getElementById('testimonial-carousel');
+      const prevBtn = document.querySelector('.nav-btn.prev');
+      const nextBtn = document.querySelector('.nav-btn.next');
+      let currentIndex = 0;
+    
+      function createTestimonialCard(testimonial) {
+        const card = document.createElement('div');
+        card.className = 'testimonial-card';
+        card.innerHTML = `
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="member-image-container">
+                <img src="${testimonial.image}" alt="${testimonial.name}" class="member-image">
+                <div class="image-overlay"></div>
+              </div>
+              <div class="member-info">
+                <h3 class="member-name">${testimonial.name}</h3>
+                <span class="member-achievement">${testimonial.achievement}</span>
+              </div>
+            </div>
+            <div class="card-back">
+              <p class="testimonial-text">"${testimonial.testimonial}"</p>
+              <div class="fitness-stats">
+                ${testimonial.stats.map(stat => `
+                  <div class="stat">
+                    <span class="stat-value">${stat.value}</span>
+                    <span class="stat-label">${stat.label}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+        return card;
+      }
+    
+      function updateCarousel() {
+        testimonialCarousel.innerHTML = '';
+        for (let i = currentIndex; i < currentIndex + 3; i++) {
+          const index = i % testimonials.length;
+          testimonialCarousel.appendChild(createTestimonialCard(testimonials[index]));
+        }
+      }
+    
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+        updateCarousel();
+      });
+    
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % testimonials.length;
+        updateCarousel();
+      });
+    
+      // Initialize carousel
+      updateCarousel();
+    
+      // Add floating animation to fitness icons
+      const icons = document.querySelectorAll('.fitness-icons i');
+      icons.forEach(icon => {
+        icon.style.animationDelay = `${Math.random() * 2}s`;
+      });
+    });
+  </script>
+  <section class="bmi-calculator-section">
+    <div class="container">
+        <div class="bmi-calculator">
+            <div class="content">
+                <h2>BMI Calculator</h2>
+                <div class="input-container">
+                    <div class="input-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" required placeholder="e.g., 175">
+                    </div>
+                    <div class="input-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" required placeholder="e.g., 70">
+                    </div>
+                    <div class="input-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" required placeholder="e.g., 30">
+                    </div>
+                    <div class="input-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" required>
+                            <option value="" disabled selected>Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="activityLevel">Activity Level</label>
+                        <select id="activityLevel" required>
+                            <option value="" disabled selected>Select Activity Level</option>
+                            <option value="1.2">Sedentary</option>
+                            <option value="1.375">Lightly Active</option>
+                            <option value="1.55">Moderately Active</option>
+                            <option value="1.725">Very Active</option>
+                            <option value="1.9">Extra Active</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="calculate-btn" onclick="calculateBiometrics()">Calculate BMI</button>
+                <div class="results">
+                    <div class="result-card">
+                        <h3>BMI</h3>
+                        <div id="bmiValue" class="result-value">-</div>
+                        <div class="unit">kg/m²</div>
+                    </div>
+                    <div class="result-card">
+                        <h3>Weight Status</h3>
+                        <div id="weightStatus" class="result-value">-</div>
+                    </div>
+                    <div class="result-card">
+                        <h3>BMR</h3>
+                        <div id="bmrValue" class="result-value">-</div>
+                        <div class="unit">calories/day</div>
+                    </div>
+                    <div class="result-card">
+                        <h3>TDEE</h3>
+                        <div id="tdeeValue" class="result-value">-</div>
+                        <div class="unit">calories/day</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+  
+  
+  
+
+    <!-- fitness gallery -->
+    {% load static %}
+    <section class="fitness-gallery-section">
+      <div class="container">
+        <h2 class="gallery-heading">Fitness Excellence</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item-card">
+            <img
+              src="{% static 'images/cardio.jpg' %}"
+              alt="State-of-the-art Equipment"
+              class="gallery-image"
+            />
+            <div class="item-content">
+              <h3 class="item-title">Cutting-edge Gear</h3>
+              <p class="item-description">
+                Experience fitness with our top-notch equipment
+              </p>
+              <a href="#" class="item-button">Explore More</a>
+            </div>
+            <div class="hashtags">
+              <span class="hashtag">#FitnessGoals</span>
+              <span class="hashtag">#GymLife</span>
+            </div>
+            <i class="fas fa-dumbbell equipment-icon"></i>
+          </div>
+          <div class="gallery-item-card">
+            <img
+              src="{% static 'images/workoutblog.jpg' %}"
+              alt="Group fitness class"
+              class="gallery-image"
+            />
+            <div class="item-content">
+              <h3 class="item-title">Dynamic Classes</h3>
+              <p class="item-description">Join our energetic group sessions</p>
+              <a href="#" class="item-button">Join Now</a>
+            </div>
+            <div class="hashtags">
+              <span class="hashtag">#TeamWorkout</span>
+              <span class="hashtag">#FitFam</span>
+            </div>
+            <i class="fas fa-users equipment-icon"></i>
+          </div>
+          <div class="gallery-item-card">
+            <img
+              src="{% static 'images/hero1.jpg' %}"
+              alt="Personal training"
+              class="gallery-image"
+            />
+            <div class="item-content">
+              <h3 class="item-title">Expert Guidance</h3>
+              <p class="item-description">
+                Personalized training for your goals
+              </p>
+              <a href="#" class="item-button">Get Started</a>
+            </div>
+            <div class="hashtags">
+              <span class="hashtag">#PersonalTrainer</span>
+              <span class="hashtag">#FitnessJourney</span>
+            </div>
+            <i class="fas fa-user-friends equipment-icon"></i>
+          </div>
+        </div>
+      </div>
+      <div class="background-elements">
+        <i class="fas fa-heartbeat bg-element" style="top: 10%; left: 5%"></i>
+        <i class="fas fa-apple-alt bg-element" style="top: 30%; right: 10%"></i>
+        <i class="fas fa-bicycle bg-element" style="bottom: 15%; left: 15%"></i>
+      </div>
+    </section>
+  </div>
+
+ 
+ 
+  
+
+    <!-- New modal for class details -->
+    <div id="nf-classModal" class="nf-modal">
+      <div class="nf-modal-content">
+        <span class="nf-close">&times;</span>
+        <h3 id="nf-modalTitle"></h3>
+        <p id="nf-modalDescription"></p>
+      </div>
+    </div>
+    <div class="fitcon-container">
+      <h1 class="fitcon-section-heading">Contact Us</h1>
+
+      <div class="fitcon-contact-wrapper">
+          <div class="fitcon-contact-info">
+              <h2>Get In Touch</h2>
+              <p>We'd love to hear from you! Whether you're interested in joining or just have a question, reach out to us today.</p>
+
+              <div class="fitcon-contact-details">
+                  <div><i class="fas fa-phone"></i><a href="tel:+1234567890">+1 234 567 890</a></div>
+                  <div><i class="fas fa-envelope"></i><a href="mailto:info@fitlifegym.com">info@fitlifegym.com</a></div>
+                  <div><i class="fas fa-map-marker-alt"></i><span>123 FitLife Ave, Wellness City</span></div>
+              </div>
+          </div>
+
+          <div class="fitcon-contact-form">
+              <h3>Send Us a Message</h3>
+              <form id="fitconContactForm" class="contact-form">
+                  <div class="fitcon-form-group">
+                      <label for="fitconName">Name</label>
+                      <input type="text" id="fitconName" name="name" required>
+                  </div>
+                  <div class="fitcon-form-group">
+                      <label for="fitconEmail">Email</label>
+                      <input type="email" id="fitconEmail" name="email" required>
+                  </div>
+                  <div class="fitcon-form-group">
+                      <label for="fitconMessage">Message</label>
+                      <textarea id="fitconMessage" name="message" rows="5" required></textarea>
+                  </div>
+                  <button type="submit" class="fitcon-form-submit">Submit</button>
+              </form>
+              <div id="fitconSuccessMessage" class="contact-success-message" style="display: none;">
+                  Thank you for your message! We'll get back to you soon. 😊
+              </div>
+          </div>
+      </div>
+
+      <div class="fitcon-contact-extra-info">
+          <div>
+              <h3>Opening Hours</h3>
+              <p>Monday - Friday: 6am - 10pm</p>
+              <p>Saturday - Sunday: 8am - 8pm</p>
+          </div>
+          <div>
+              <h3>Location</h3>
+              <p>123 FitLife Ave, Wellness City</p>
+          </div>
+      </div>
+  </div>
+
+  <script src="{% static 'js/script.js' %}"></script>
+    <script>
+      document.getElementById("calculate-bmi").addEventListener("click", function() {
+    // Get input values
+    const height = parseFloat(document.getElementById("height-bmi").value);
+    const weight = parseFloat(document.getElementById("weight-bmi").value);
+    const age = parseInt(document.getElementById("age-bmi").value);
+    const gender = document.getElementById("gender-bmi").value;
+
+    // Check if the inputs are valid
+    if (isNaN(height) || isNaN(weight) || isNaN(age)) {
+        alert("Please fill out all fields with valid numbers.");
+        return;
+    }
+
+    // Calculate BMI
+    const heightInMeters = height / 100;
+    const bmi = (weight / (heightInMeters * heightInMeters)).toFixed(2);
+
+    // Determine BMI category
+    let category = '';
+    if (bmi < 18.5) {
+        category = "Underweight";
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+        category = "Normal weight";
+    } else if (bmi >= 25 && bmi < 29.9) {
+        category = "Overweight";
+    } else {
+        category = "Obese";
+    }
+
+    // Display results
+    document.getElementById("bmi-value").textContent = bmi;
+    document.getElementById("bmi-category").textContent = category;
+});
+
+
+
+ function calculateBiometrics() {
+        const height = document.getElementById('height').value / 100;
+        const weight = document.getElementById('weight').value;
+        const age = document.getElementById('age').value;
+        const gender = document.getElementById('gender').value;
+        const activityLevel = parseFloat(document.getElementById('activityLevel').value);
+
+        if (height && weight && age && gender && activityLevel) {
+            const calculateBtn = document.querySelector('.calculate-btn');
+            calculateBtn.classList.add('loading', 'active');
+            calculateBtn.disabled = true;
+
+            setTimeout(() => {
+                const bmi = weight / (height * height);
+                const bmiValue = document.getElementById('bmiValue');
+                const weightStatus = document.getElementById('weightStatus');
+
+                bmiValue.textContent = bmi.toFixed(1);
+                weightStatus.textContent = getBmiCategory(bmi);
+
+                let bmr;
+                if (gender === 'male') {
+                    bmr = 88.362 + (13.397 * weight) + (4.799 * height * 100) - (5.677 * age);
+                } else {
+                    bmr = 447.593 + (9.247 * weight) + (3.098 * height * 100) - (4.330 * age);
+                }
+
+                const tdee = bmr * activityLevel;
+
+                document.getElementById('bmrValue').textContent = Math.round(bmr);
+                document.getElementById('tdeeValue').textContent = Math.round(tdee);
+
+                calculateBtn.classList.remove('loading', 'active');
+                calculateBtn.disabled = false;
+
+                animateResults();
+            }, 1000);
+        } else {
+            alert('Please fill in all fields');
+        }
+    }
+
+    function getBmiCategory(bmi) {
+        if (bmi < 18.5) return 'Underweight';
+        if (bmi < 25) return 'Normal';
+        if (bmi < 30) return 'Overweight';
+        return 'Obese';
+    }
+
+    function animateResults() {
+        const results = document.querySelectorAll('.result-value');
+        results.forEach((result, index) => {
+            setTimeout(() => {
+                result.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    result.style.transform = 'scale(1)';
+                }, 200);
+            }, index * 100);
+        });
+    }
+    </script>
+    
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>Fitness Club</h3>
+            <p>
+              Empowering you to achieve your fitness goals and embrace a
+              healthier lifestyle. Join our community today!
+            </p>
+            <div class="social-icons">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+          <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="{% url 'index' %}">Home</a></li>
+              <li><a href="{% url 'aboutus' %}">About Us</a></li>
+              <li><a href="{% url 'services' %}">Services</a></li>
+              <li><a href="{% url 'contact' %}">Contact Us</a></li>
+              <li><a href="{% url 'memberships' %}">Membership Plans</a></li>
+            </ul>
+          </div>
+          <div class="footer-section contact-info">
+            <h3>Contact Us</h3>
+            <p>
+              <i class="fas fa-map-marker-alt"></i> 123 Fitness Street, Healthy
+              City, 12345
+            </p>
+            <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+            <p><i class="fas fa-envelope"></i> info@fitnessclub.com</p>
+            <p>
+              <i class="fas fa-clock"></i> Mon-Fri: 5am-11pm, Sat-Sun: 7am-9pm
+            </p>
+          </div>
+          <div class="footer-section">
+            <h3>Join Our Club</h3>
+            <p>Start your fitness journey today and transform your life!</p>
+            <a href="{% url 'signup' %}" class="cta-button">Become a Member</a>
+            <div class="payment-icons">
+              <i class="fab fa-cc-visa"></i>
+              <i class="fab fa-cc-mastercard"></i>
+              <i class="fab fa-cc-amex"></i>
+              <i class="fab fa-cc-paypal"></i>
+              <i class="fab fa-apple-pay"></i>
+            </div>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>
+            &copy; 2024 Fitness Club. All rights reserved. | Designed with
+            <i class="fas fa-heart" style="color: #4caf50"></i> for a healthier
+            you
+          </p>
+        </div>
+      </div>
+    </footer>
+    
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fitconForm = document.getElementById('fitconContactForm');
+    const fitconSuccessMessage = document.getElementById('fitconSuccessMessage');
+    const fitconSubmitButton = document.querySelector('.fitcon-form-submit');
+
+    if (fitconForm) {
+        fitconForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Add loading state
+            fitconSubmitButton.disabled = true;
+            fitconSubmitButton.style.opacity = '0.7';
+
+            // Get form data
+            const formData = new FormData(this);
+            const formDataObject = Object.fromEntries(formData.entries());
+            
+            // Simulate form submission (replace with your actual API call)
+            setTimeout(() => {
+                // Reset form
+                fitconForm.reset();
+                
+                // Remove loading state
+                fitconSubmitButton.disabled = false;
+                fitconSubmitButton.style.opacity = '1';
+                
+                // Show success message
+                fitconSuccessMessage.style.display = 'block';
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    fitconSuccessMessage.style.display = 'none';
+                }, 5000);
+            }, 1500);
+        });
+    }
+});
+</script>
+  </body>
+</html>
+
+
+

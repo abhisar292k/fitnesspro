@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achiever Plan - FitnessClub Gym</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FFC107;
+            --text-color: #333;
+            --light-bg: #f9f9f9;
+            --white: #ffffff;
+            --gradient: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background-color: var(--light-bg);
+            color: var(--text-color);
+            padding: 40px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            background: var(--gradient);
+            color: var(--white);
+            padding: 60px 0;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: var(--white);
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .plan-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .plan-info {
+            flex: 1;
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .plan-price span {
+            font-size: 1.2rem;
+            color: var(--text-color);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            padding: 20px;
+            background: var(--light-bg);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .feature i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .benefit {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .benefit:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .benefit i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .benefit h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .reviews {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .reviews h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .review {
+            background: var(--light-bg);
+            border-radius: 15px;
+            padding: 30px;
+            transition: var(--transition);
+        }
+
+        .review:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .review-header img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .review-name {
+            font-weight: 600;
+        }
+
+        .review-rating {
+            color: var(--secondary-color);
+            margin-left: auto;
+        }
+
+        .review-content {
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .plan-details {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .feature {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .feature i {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--white);
+            color: var(--primary-color);
+            text-decoration: none;
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-btn i {
+            font-size: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                top: 15px;
+                left: 15px;
+            }
+
+            .back-btn {
+                padding: 10px 16px;
+            }
+
+            .back-btn span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back-button">
+        <a href="javascript:history.back()" class="back-btn">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back</span>
+        </a>
+    </div>
+    
+    <div class="container">
+        <div class="hero">
+            <h1>Achieve More with FitnessClub Gym</h1>
+            <p>Take your fitness journey to the next level with our Achiever Plan. Expert guidance, personalized nutrition, and premium facilities await you.</p>
+            <a href="#" class="cta-button">Start Your 7-Day Free Trial</a>
+        </div>
+
+        <div class="plan-details">
+            <div class="plan-info">
+                <h2>Achiever Plan</h2>
+                <p class="plan-price">₹1500 <span>/3 months</span></p>
+                <p>Designed for those ready to push their limits and achieve remarkable results</p>
+            </div>
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>Full Gym Access</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-user-friends"></i>
+                    <span>3 Personal Training Sessions</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-apple-alt"></i>
+                    <span>Nutrition Consultation</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Priority Class Booking</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-heartbeat"></i>
+                    <span>Advanced Health Monitoring</span>
+                </div>
+               
+            </div>
+        </div>
+
+        <div class="benefits">
+            <div class="benefit">
+                <i class="fas fa-dumbbell"></i>
+                <h3>Advanced Equipment Access</h3>
+                <p>Enjoy priority access to our state-of-the-art equipment, including specialized training zones.</p>
+            </div>
+            <div class="benefit">
+                <i class="fas fa-user-friends"></i>
+                <h3>Personalized Training</h3>
+                <p>Three sessions with our expert trainers to create and refine your perfect workout plan.</p>
+            </div>
+            <div class="benefit">
+                <i class="fas fa-apple-alt"></i>
+                <h3>Customized Nutrition Plan</h3>
+                <p>Receive a tailored nutrition consultation to fuel your workouts and reach your goals faster.</p>
+            </div>
+           
+        </div>
+
+        <div class="reviews">
+            <h2>Success Stories from Our Achievers</h2>
+            <div class="review-grid">
+                <div class="review">
+                    <div class="review-header">
+                        <img src="" alt="Emma S.">
+                        <span class="review-name">Emma S.</span>
+                        <span class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </span>
+                    </div>
+                    <p class="review-content">"The Achiever Plan has been a game-changer for me. The personal training sessions and nutrition advice helped me lose 15 kg in just 3 months!"</p>
+                </div>
+                <div class="review">
+                    <div class="review-header">
+                        <img src="/api/placeholder/50/50" alt="Alex M.">
+                        <span class="review-name">Alex M.</span>
+                        <span class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </span>
+                    </div>
+                    <p class="review-content">"I love the priority booking for classes and the advanced health monitoring. It's like having a personal health coach with me all the time!"</p>
+                </div>
+                <div class="review">
+                    <div class="review-header">
+                        <img src="/api/placeholder/50/50" alt="Sophia L.">
+                        <span class="review-name">Sophia L.</span>
+                        <span class="review-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </span>
+                    </div>
+                    <p class="review-content">"The premium app features are fantastic! I can track my workouts, nutrition, and progress all in one place. It's incredibly motivating to see my improvements over time."</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px;">
+            <a href="#" class="cta-button">Level Up with the Achiever Plan</a>
+        </div>
+    </div>
+</body>
+
+</html>

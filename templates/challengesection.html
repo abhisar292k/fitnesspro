@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fitness Challenges</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+    :root {
+      --primary-color: #ff4081;
+      --secondary-color: #3f51b5;
+      --text-color: #333;
+      --white: #ffffff;
+      --button-color: #ff4081;
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --transition-speed: 0.4s ease;
+      --background-light: #f9f9f9;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-light);
+      color: var(--text-color);
+    }
+
+    .challenge-section {
+      padding: 120px 0;
+      background: linear-gradient(135deg, #f3e7e9 0%, #e3eef7 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background Animation */
+    .challenge-section::before, .challenge-section::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(63, 81, 181, 0.5) 10%, transparent 60%);
+      border-radius: 50%;
+      animation: floatBackground 6s infinite ease-in-out;
+    }
+
+    .challenge-section::before {
+      top: -100px;
+      left: -100px;
+    }
+
+    .challenge-section::after {
+      bottom: -100px;
+      right: -100px;
+      background: radial-gradient(circle, rgba(255, 64, 129, 0.6) 10%, transparent 60%);
+    }
+
+    @keyframes floatBackground {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(20px);
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .challenge-heading {
+      text-align: center;
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: var(--secondary-color);
+      margin-bottom: 80px;
+      position: relative;
+    }
+
+    .challenge-heading::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary-color);
+      margin: 20px auto 0;
+    }
+
+    .challenge-cards {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 40px;
+    }
+
+    .challenge-card {
+      background-color: var(--white);
+      border-radius: 20px;
+      box-shadow: 0 15px 40px var(--shadow-color);
+      overflow: hidden;
+      transition: var(--transition-speed);
+      width: 360px;
+      text-align: center;
+      position: relative;
+      transform: translateY(0);
+    }
+
+    .challenge-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    }
+
+    .challenge-image {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      transition: var(--transition-speed);
+      border-bottom: 3px solid var(--primary-color);
+    }
+
+    .challenge-card:hover .challenge-image {
+      transform: scale(1.05);
+    }
+
+    .challenge-details {
+      padding: 25px;
+    }
+
+    .challenge-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+    }
+
+    .challenge-description {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-color);
+      margin-bottom: 25px;
+    }
+
+    .challenge-button {
+      display: inline-block;
+      padding: 12px 28px;
+      background-color: var(--button-color);
+      color: var(--white);
+      border-radius: 30px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: var(--transition-speed);
+    }
+
+    .challenge-button:hover {
+      background-color: var(--secondary-color);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .challenge-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .challenge-card {
+        width: 100%;
+        max-width: 400px;
+      }
+
+      .challenge-heading {
+        font-size: 2.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="challenge-section">
+    <div class="container">
+      <h2 class="challenge-heading">Join Our Fitness Challenges</h2>
+      <div class="challenge-cards">
+        <div class="challenge-card">
+          <img src="{% static '/images/healthy (1).jpg' %}" alt="Challenge 1" class="challenge-image">
+          <div class="challenge-details">
+            <h3 class="challenge-title">30-Day Fitness Challenge</h3>
+            <p class="challenge-description">Take on our 30-day fitness challenge and transform your body and mind with daily workouts and nutrition tips.</p>
+            <a href="{% url 'thirty_day_challenge' %}" class="challenge-button">Join Now</a>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <img src="{% static '/images/healthy (6).jpg' %}" alt="Challenge 2" class="challenge-image">
+          <div class="challenge-details">
+            <h3 class="challenge-title">Healthy Eating Challenge</h3>
+            <p class="challenge-description">Commit to healthier eating habits with our healthy eating challenge featuring meal plans, recipes, and nutrition tips.</p>
+            <a href="{% url 'eating' %}" class="challenge-button">Join Now</a>
+          </div>
+        </div>
+        <div class="challenge-card">
+          <img src="{% static '/images/healthy (4).jpg' %}" alt="Challenge 3" class="challenge-image">
+          <div class="challenge-details">
+            <h3 class="challenge-title">Cardio Challenge</h3>
+            <p class="challenge-description">Challenge yourself with our cardio challenge and improve your cardiovascular health with fun and effective workouts.</p>
+            <a href="{% url 'cardio_challenge' %}" class="challenge-button">Join Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,922 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Gym Memberships - Elite Fitness</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <style>
+        :root {
+            --primary: #00c853;
+            --primary-dark: #009624;
+            --secondary: #ffd700;
+            --dark: #121212;
+            --card-bg: #1e1e1e;
+            --text-light: rgba(255, 255, 255, 0.95);
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --gradient-1: linear-gradient(135deg, #00c853, #64dd17);
+            --gradient-2: linear-gradient(135deg, #ffd700, #ffab00);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .membership-plans {
+            padding: 100px 20px;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #121212, #1a1a1a, #242424, #1a1a1a);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .title-main {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .title-sub {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+        }
+
+        .special-offer {
+            background: linear-gradient(135deg, rgba(0,200,83,0.1), rgba(255,215,0,0.1));
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .offer-badge {
+            background: var(--gradient-2);
+            color: var(--dark);
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .offer-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            color: var(--text-light);
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .countdown-item {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 25px;
+            border-radius: 15px;
+            min-width: 100px;
+        }
+
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .countdown-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 4rem;
+        }
+
+        .plan-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .plan-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .plan-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(0, 200, 83, 0.1);
+            border-radius: 30px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .premium-badge, .elite-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .premium-badge {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .elite-badge {
+            background: var(--gradient-2);
+            color: var(--dark);
+        }
+
+        .plan-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 20px 0;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .price {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 30px 0;
+        }
+
+        .price span {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 12px;
+            background: rgba(0, 200, 83, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateX(10px);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            border-radius: 10px;
+            margin-right: 15px;
+            color: white;
+        }
+
+        .cta-button {
+            display: inline-block;
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-1);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 200, 83, 0.3);
+        }
+
+        /* Comparison Table Styles */
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 40px 0;
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(0, 200, 83, 0.05);
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            transform: translateX(10px);
+            background: rgba(0, 200, 83, 0.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .title-main {
+                font-size: 2.5rem;
+            }
+            
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Social Proof Styles */
+        .social-proof {
+            margin: 80px 0;
+        }
+
+        .ratings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .rating-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .rating-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .rating-logo {
+            height: 30px;
+            margin-bottom: 20px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+        }
+
+        .rating-stars {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .rating-score {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 5px;
+        }
+
+        .rating-count {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .countdown-timer {
+                flex-wrap: wrap;
+            }
+            
+            .countdown-item {
+                min-width: 80px;
+            }
+            
+            .countdown-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="contact-info">
+          <span>Contact: +91 9874 456 123</span>
+        </div>
+        <ul>
+          <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+          <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+          <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+          <li><a href="#"><i class="far fa-envelope"></i></a></li>
+          <li>
+            <a href="#" class="login-link">
+              <i class="fas fa-user"></i>
+              <span class="login-text">Login / Signup</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <header>
+        <div class="logo">Fitness <span>Club</span></div>
+        <div class="burger">
+          <div class="line1"></div>
+          <div class="line2"></div>
+          <div class="line3"></div>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'aboutus' %}">About</a></li>
+            <li><a href="{% url 'services' %}">Services</a></li>
+            <li><a href="{% url 'blog' %}">Blog</a></li>
+            <li class="dropdown">
+              <a href="{% url 'memberships' %}" class="dropbtn">Membership</a>
+              <div class="dropdown-content">
+                <a href="{% url 'starterplan' %}">Starter</a>
+                <a href="{% url 'achieverplan' %}">Achiever</a>
+                <a href="{% url 'transformerplan' %}">Transformer</a>
+                <a href="{% url 'eliteplan' %}">Elite</a>
+              </div>
+            </li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+            <li class="dropdown dropdown-shop">
+              <a href="{% url 'shop' %}" class="dropbtn">Shop</a>
+              <div class="dropdown-content">
+                <a href="#">Supplements</a>
+                <a href="#">Fitness Gear</a>
+                <a href="#">Apparel</a>
+              </div>
+            </li>
+          </ul>
+          
+        </nav>
+      </header>
+    <section class="membership-plans">
+        <div class="container">
+            <div class="page-title" data-aos="fade-up">
+                <h1 class="title-main">Transform Your Life</h1>
+                <p class="title-sub">Join our premium fitness community and achieve your goals with world-class facilities and expert guidance</p>
+            </div>
+            
+            <!-- Stats Section -->
+            <div class="stats-section" data-aos="fade-up">
+                <div class="stat-item">
+                    <div class="stat-number">10K+</div>
+                    <div class="stat-label">Active Members</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Expert Trainers</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Weekly Classes</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfaction Rate</div>
+                </div>
+            </div>
+
+            <!-- Special Offer -->
+            <div class="special-offer" data-aos="fade-up">
+                <div class="offer-badge">Limited Time Offer</div>
+                <h3 class="offer-title">New Year Special: 30% Off on All Plans</h3>
+                <div class="countdown-timer" id="countdown">
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="days">00</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="hours">00</span>
+                        <span class="countdown-label">Hours</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="minutes">00</span>
+                        <span class="countdown-label">Minutes</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-value" id="seconds">00</span>
+                        <span class="countdown-label">Seconds</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Plans Grid -->
+            <div class="plans-grid">
+                <!-- Starter Plan -->
+                <div class="plan-card" data-aos="fade-up">
+                    <div class="plan-tag">STARTER</div>
+                    <h3 class="plan-name">STARTER</h3>
+                    <div class="price">₹700 <span>/month</span></div>
+                    <ul class="features-list">
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span>Access 6AM-10PM</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <span>Basic Equipment Access</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <span>1 PT Session/month</span>
+                        </li>
+                    </ul>
+                    <a href="{% url 'starterplan' %}" class="cta-button">Start Now</a>
+
+                </div>
+
+                <!-- Achiever Plan -->
+                <div class="plan-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="premium-badge">POPULAR</div>
+                    <div class="plan-tag">ACHIEVER</div>
+                    <h3 class="plan-name">ACHIEVER</h3>
+                    <div class="price">₹1500 <span>/3 months</span></div>
+                    <ul class="features-list">
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span>24/7 Access</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <span>Full Equipment Access</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span>3 PT Sessions/month</span>
+                        </li>
+                    </ul>
+                    <a href="{% url 'achieverplan' %}" class="cta-button">Join Achiever</a>
+
+                </div>
+
+                <!-- Transformer Plan -->
+                <div class="plan-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="plan-tag">TRANSFORMER</div>
+                    <h3 class="plan-name">TRANSFORMER</h3>
+                    <div class="price">₹2500 <span>/6 months</span></div>
+                    <ul class="features-list">
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <span>All Achiever Features</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <span>Weekly PT Sessions</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <span>Progress Tracking</span>
+                        </li>
+                    </ul>
+                    <a href="{% url 'transformerplan' %}" class="cta-button">Transform Now</a>
+
+                </div>
+
+                <!-- Elite Plan -->
+                <div class="plan-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="elite-badge">ELITE</div>
+                    <div class="plan-tag">ELITE</div>
+                    <h3 class="plan-name">ELITE</h3>
+                    <div class="price">₹4000 <span>/year</span></div>
+                    <ul class="features-list">
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <span>VIP Access + Benefits</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <span>Unlimited PT Sessions</span>
+                        </li>
+                        <li class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-spa"></i>
+                            </div>
+                            <span>Spa & Recovery Access</span>
+                        </li>
+                    </ul>
+                    <a href="{% url 'eliteplan' %}" class="cta-button">Join Elite</a>
+
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div class="comparison-section" data-aos="fade-up">
+                <h2 class="title-main" style="font-size: 2.5rem;">Detailed Plan Comparison</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Features</th>
+                            <th>Basic</th>
+                            <th>Premium</th>
+                            <th>Advanced</th>
+                            <th>Elite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Gym Access</td>
+                            <td>6AM-10PM</td>
+                            <td>24/7</td>
+                            <td>24/7</td>
+                            <td>24/7 VIP</td>
+                        </tr>
+                        <tr>
+                            <td>Personal Training</td>
+                            <td>1 Session</td>
+                            <td>3 Sessions</td>
+                            <td>Weekly</td>
+                            <td>Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td>Equipment Access</td>
+                            <td>Basic</td>
+                            <td>Full</td>
+                            <td>Full</td>
+                            <td>Full + VIP</td>
+                        </tr>
+                        <tr>
+                            <td>Nutrition Plan</td>
+                            <td>Basic Guide</td>
+                            <td>Custom Plan</td>
+                            <td>Custom Plan+ Coaching</td>
+                            <td>Elite Plan + Chef</td>
+                        </tr>
+                        <tr>
+                            <td>Group Classes</td>
+                            <td>2/week</td>
+                            <td>5/week</td>
+                            <td>Unlimited</td>
+                            <td>Priority Booking</td>
+                        </tr>
+                        <tr>
+                            <td>Guest Passes</td>
+                            <td>-</td>
+                            <td>2/month</td>
+                            <td>4/month</td>
+                            <td>Unlimited</td>
+                        </tr>
+                        <tr>
+                            <td>Locker Access</td>
+                            <td>Day Use</td>
+                            <td>Personal</td>
+                            <td>Personal</td>
+                            <td>Premium Locker</td>
+                        </tr>
+                        <tr>
+                            <td>Recovery Zone</td>
+                            <td>-</td>
+                            <td>Basic</td>
+                            <td>Full Access</td>
+                            <td>VIP Access</td>
+                        </tr>
+                        <tr>
+                            <td>Progress Tracking</td>
+                            <td>Basic</td>
+                            <td>Advanced</td>
+                            <td>Premium</td>
+                            <td>Elite Coach</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Benefits Section -->
+            <div class="benefits-section" data-aos="fade-up">
+                <h2 class="title-main" style="font-size: 2.5rem;">Why Choose Us</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin: 40px 0;">
+                    <div class="benefit-card" style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center;">
+                        <i class="fas fa-dumbbell" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+                        <h3 style="margin-bottom: 15px;">State-of-the-Art Equipment</h3>
+                        <p style="color: var(--text-muted);">Latest fitness technology and premium equipment for optimal results</p>
+                    </div>
+                    <div class="benefit-card" style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center;">
+                        <i class="fas fa-users" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+                        <h3 style="margin-bottom: 15px;">Expert Trainers</h3>
+                        <p style="color: var(--text-muted);">Certified professionals dedicated to your fitness journey</p>
+                    </div>
+                    <div class="benefit-card" style="background: var(--card-bg); padding: 30px; border-radius: 15px; text-align: center;">
+                        <i class="fas fa-clock" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 20px;"></i>
+                        <h3 style="margin-bottom: 15px;">Flexible Hours</h3>
+                        <p style="color: var(--text-muted);">24/7 access to fit your schedule</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Social Proof -->
+            <div class="social-proof" data-aos="fade-up">
+                <h2 class="title-main" style="font-size: 2.5rem;">Trusted By Athletes & Fitness Enthusiasts</h2>
+                <div class="ratings-grid">
+                    <div class="rating-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Google_2015_logo.svg/2560px-Google_2015_logo.svg.png" alt="Google" class="rating-logo">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-score">4.8/5</div>
+                        <div class="rating-count">based on 500+ reviews</div>
+                    </div>
+                    <div class="rating-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Yelp_logo.svg/2560px-Yelp_logo.svg.png" alt="Yelp" class="rating-logo">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <div class="rating-score">4.7/5</div>
+                        <div class="rating-count">based on 300+ reviews</div>
+                    </div>
+                    <div class="rating-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Facebook_f_logo_%282021%29.svg/2048px-Facebook_f_logo_%282021%29.svg.png" alt="Facebook" class="rating-logo">
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-score">4.9/5</div>
+                        <div class="rating-count">based on 1000+ reviews</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section" data-aos="fade-up">
+                <h2 class="title-main" style="font-size: 2.5rem;">Common Questions</h2>
+                <div class="faq-grid" style="max-width: 800px; margin: 40px auto;">
+                    <div class="faq-item">
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">What's included in the fitness assessment?</h3>
+                        <p>Our comprehensive assessment includes body composition analysis, strength testing, flexibility evaluation, and personalized goal setting with a certified trainer.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">Can I freeze my membership?</h3>
+                        <p>Yes, all members can freeze their membership up to 3 months per year. Elite members get unlimited freezing privileges.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 style="color: var(--primary); margin-bottom: 10px;">How do I book personal training sessions?</h3>
+                        <p>Easily book your sessions through our mobile app or at the front desk. We recommend booking 24 hours in advance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="cta-section" data-aos="fade-up" style="text-align: center; margin-top: 80px;">
+                <h2 class="title-main" style="font-size: 2.8rem;">Start Your Journey Today</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.2rem;">Join our community of over 10,000 members and transform your life</p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="#" class="cta-button" style="max-width: 250px;">Schedule a Tour</a>
+                    <a href="#" class="cta-button" style="max-width: 250px; background: var(--gradient-2);">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <div class="container">
+          <div class="footer-content">
+            <div class="footer-section">
+              <h3>Fitness Club</h3>
+              <p>
+                Empowering you to achieve your fitness goals and embrace a
+                healthier lifestyle. Join our community today!
+              </p>
+              <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+              </div>
+            </div>
+            <div class="footer-section">
+              <h3>Quick Links</h3>
+              <ul class="footer-links">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'aboutus' %}">About Us</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                <li><a href="{% url 'memberships' %}">Membership Plans</a></li>
+              </ul>
+            </div>
+            <div class="footer-section contact-info">
+              <h3>Contact Us</h3>
+              <p>
+                <i class="fas fa-map-marker-alt"></i> 123 Fitness Street, Healthy
+                City, 12345
+              </p>
+              <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+              <p><i class="fas fa-envelope"></i> info@fitnessclub.com</p>
+              <p>
+                <i class="fas fa-clock"></i> Mon-Fri: 5am-11pm, Sat-Sun: 7am-9pm
+              </p>
+            </div>
+            <div class="footer-section">
+              <h3>Join Our Club</h3>
+              <p>Start your fitness journey today and transform your life!</p>
+              <a href="{% url 'signup' %}" class="cta-button">Become a Member</a>
+              <div class="payment-icons">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-amex"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-apple-pay"></i>
+              </div>
+            </div>
+          </div>
+          <div class="copyright">
+            <p>
+              &copy; 2025 Fitness Club. All rights reserved. | Designed with
+              <i class="fas fa-heart" style="color: #4caf50"></i> for a healthier
+              you
+            </p>
+          </div>
+        </div>
+      </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+
+        // Countdown Timer
+        function startCountdown() {
+            // Set the date to 2 months from now
+            const endDate = new Date();
+            endDate.setMonth(endDate.getMonth() + 2);  // Adding 2 months to current date
+
+            function updateTimer() {
+                const now = new Date();
+                const timeDifference = endDate - now;
+
+                if (timeDifference <= 0) {
+                    document.getElementById('countdown').innerHTML = '<h3>Offer has expired!</h3>';
+                    return;
+                }
+
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+                // Update the HTML elements
+                document.getElementById('days').textContent = days < 10 ? '0' + days : days;
+                document.getElementById('hours').textContent = hours < 10 ? '0' + hours : hours;
+                document.getElementById('minutes').textContent = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').textContent = seconds < 10 ? '0' + seconds : seconds;
+            }
+
+            // Update immediately and then every second
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        }
+
+        // Start the countdown when the page loads
+        startCountdown();
+    </script>
+</body>
+</html>

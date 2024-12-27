@@ -1,0 +1,626 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FitnessClub Blog | Stay Fit, Stay Informed</title>
+  
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+
+
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+</head>
+<style>
+  /* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+/* Blog header styles */
+.fitness-blog-header {
+    background-image: url("{% static 'images/workoutblog.jpg' %}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 100px 0;
+    position: relative;
+    text-align: center;
+}
+
+.fitness-blog-header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    filter: blur(5px);
+    z-index: 0;
+}
+
+.fitness-blog-header .container {
+    position: relative;
+    z-index: 1;
+}
+
+.fitness-blog-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.fitness-blog-subtitle {
+    font-size: 1.5rem;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Blog container styles */
+.fitness-blog-container {
+    padding: 50px 0;
+}
+
+.fitness-blog-layout {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.fitness-blog-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.fitness-blog-sidebar {
+    width: 300px;
+    margin-left: 30px;
+}
+
+.fitness-blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* Blog card styles */
+.fitness-blog-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.fitness-blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.fitness-blog-card-img {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.fitness-blog-card-category {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color:#4caf50;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.fitness-blog-card-content {
+    padding: 30px;
+}
+
+.fitness-blog-card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color:#4caf50;
+}
+
+.fitness-blog-card-excerpt {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.fitness-blog-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.fitness-btn-read-more {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+.fitness-btn-read-more:hover {
+    background-color:#ffc107;;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar styles */
+.fitness-blog-sidebar {
+    background-color: #ffffff;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    height: 620px;
+}
+
+.fitness-sidebar-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #4caf50;
+}
+
+.fitness-sidebar-categories,
+.fitness-sidebar-recent-posts {
+    list-style-type: none;
+    padding: 0;
+}
+
+.fitness-sidebar-categories li,
+.fitness-sidebar-recent-posts li {
+    margin-bottom: 15px;
+}
+
+.fitness-sidebar-categories a,
+.fitness-sidebar-recent-posts a {
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.fitness-sidebar-categories a:hover,
+.fitness-sidebar-recent-posts a:hover {
+    color: #4caf50;
+    padding-left: 5px;
+}
+
+.fitness-sidebar-categories i,
+.fitness-sidebar-recent-posts i {
+    margin-right: 10px;
+    color: #4caf50;
+}
+
+/* Search styles */
+.fitness-blog-search {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.fitness-blog-search input {
+    width: 100%;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 50px;
+    background-color: #f0f0f0;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.fitness-blog-search input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #4caf50;
+}
+
+.fitness-blog-search button {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.fitness-blog-search button:hover {
+    background-color: #ffc107;;
+}
+
+#fitnessSearchResults {
+    display: none;
+}
+
+.fitness-search-result-item {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.fitness-search-result-title {
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+.fitness-search-result-excerpt {
+    font-size: 0.9rem;
+    color: #666;
+}
+/* Responsive styles */
+@media (max-width: 1200px) {
+    .fitness-blog-title {
+        font-size: 3rem;
+    }
+    .fitness-blog-subtitle {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .fitness-blog-card-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .fitness-blog-card-date {
+        margin-top: 10px;
+    }
+    .fitness-blog-layout {
+        flex-direction: column;
+    }
+    .fitness-blog-sidebar {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .fitness-blog-title {
+        font-size: 2.5rem;
+    }
+    .fitness-blog-subtitle {
+        font-size: 1.1rem;
+    }
+    .fitness-blog-card-img {
+        height: 150px;
+    }
+}
+
+@media (max-width: 576px) {
+    .fitness-blog-header {
+        padding: 60px 0;
+    }
+    .fitness-blog-title {
+        font-size: 2rem;
+    }
+    .fitness-blog-subtitle {
+        font-size: 1rem;
+    }
+    .fitness-blog-card-content {
+        padding: 20px;
+    }
+    .fitness-blog-card-title {
+        font-size: 1.3rem;
+    }
+    .fitness-blog-card-excerpt {
+        font-size: 0.9rem;
+    }
+}
+</style>
+<body>
+    <div class="navbar">
+        <div class="contact-info">
+            <span>Contact: +91 9874 456 123</span>
+        </div>
+        <ul class="social-links">
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+            <li><a href="#"><i class="far fa-envelope"></i></a></li>
+        </ul>
+    </div>
+    <header>
+        <div class="logo">Fitness <span>Club</span></div>
+        <div class="burger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'aboutus' %}">About</a></li>
+                <li><a href="{% url 'services' %}">Services</a></li>
+                <li><a href="{% url 'blog' %}">Blog</a></li>
+                <li class="dropdown">
+                  <a href="#" class="dropbtn">Membership</a>
+                  <div class="dropdown-content">
+                    <a href="{% url 'starterplan' %}">Starter</a>
+                    <a href="{% url 'achieverplan' %}">Achiever</a>
+                    <a href="{% url 'transformerplan' %}">Transformer</a>
+                    <a href="{% url 'eliteplan' %}">Elite</a>
+                  </div>
+                </li>
+                <li><a href="{% url 'contact' %}">Contact</a></li>
+                <li class="dropdown dropdown-shop">
+                  <a href="{% url 'shop' %}" class="dropbtn">Shop</a>
+                  <div class="dropdown-content">
+                    <a href="#">Supplements</a>
+                    <a href="#">Fitness Gear</a>
+                    <a href="#">Apparel</a>
+                  </div>
+                </li>
+              </ul>
+        </nav>
+    </header>
+    <section class="fitness-blog-header">
+        <div class="container">
+            <h1 class="fitness-blog-title">FitnessClub Blog</h1>
+            <p class="fitness-blog-subtitle">Stay Fit, Stay Informed</p>
+        </div>
+    </section>
+    <div class="fitness-blog-container">
+        <div class="container">
+            <div class="fitness-blog-layout">
+                <div class="fitness-blog-main">
+                    <div id="fitnessBlogPosts" class="fitness-blog-grid">
+                        <!-- Blog posts will be dynamically inserted here -->
+                    </div>
+                    <div id="fitnessSearchResults">
+                        <h2>Search Results</h2>
+                        <div id="fitnessSearchResultsList"></div>
+                    </div>
+                </div>
+                <div class="fitness-blog-sidebar">
+                    <aside>
+                        <div class="fitness-blog-search">
+                            <input type="text" id="fitnessSearchInput" placeholder="Search blog..." />
+                            <button type="submit" id="fitnessSearchButton">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar-section">
+                            <h3 class="fitness-sidebar-title">Categories</h3>
+                            <ul class="fitness-sidebar-categories">
+                                <li><a href="#"><i class="fas fa-dumbbell"></i> Workouts</a></li>
+                                <li><a href="#"><i class="fas fa-apple-alt"></i> Nutrition</a></li>
+                                <li><a href="#"><i class="fas fa-heartbeat"></i> Wellness</a></li>
+                                <li><a href="#"><i class="fas fa-running"></i> Fitness Tips</a></li>
+                            </ul>
+                        </div>
+                        <div class="sidebar-section">
+                            <h3 class="fitness-sidebar-title">Recent Posts</h3>
+                            <ul class="fitness-sidebar-recent-posts">
+                                <li><a href="#"><i class="far fa-file-alt"></i> The Benefits of Morning Workouts</a></li>
+                                <li><a href="#"><i class="far fa-file-alt"></i> 5 Healthy Smoothie Recipes</a></li>
+                                <li><a href="#"><i class="far fa-file-alt"></i> Yoga for Stress Relief</a></li>
+                                <li><a href="#"><i class="far fa-file-alt"></i> Building Muscle: Myths vs. Facts</a></li>
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        (function () {
+  document.addEventListener("DOMContentLoaded", () => {
+    // Sample blog post data (in a real application, this would come from a database)
+    const fitnessBlogPosts = [
+      {
+        title: "10 Superfoods to Boost Your Workout",
+        excerpt: "Discover the power-packed foods that can take your fitness routine to the next level.",
+        category: "Nutrition",
+        author: "soni abhi",
+        date: "May 15, 2023",
+        image: "{% static 'images/healthyblog.jpg' %}",
+
+      },
+      {
+        title: "The Ultimate HIIT Workout for Busy Professionals",
+        excerpt: "Short on time but want maximum results? This HIIT workout is designed for busy schedules.",
+        category: "Workout",
+        author: "Abhi soni",
+        date: "May 10, 2023",
+        image: "{% static 'images/10workout.jpg' %}",
+      },
+      {
+        title: "Mindfulness and Exercise: A Powerful Combination",
+        excerpt: "Learn how mindfulness techniques can enhance your workout routine.",
+        category: "Wellness",
+        author: "Abhisar",
+        date: "May 5, 2023",
+        image: "{% static 'images/5midfull.jpeg' %}",
+      },
+      {
+        title: "5 Common Fitness Mistakes and How to Avoid Them",
+        excerpt: "Discover common workout blunders and how to correct them.",
+        category: "Fitness Tips",
+        author: "Abhisar soni",
+        date: "May 1, 2023",
+        image: "{% static 'images/5common.jpeg' %}",
+
+      },
+    ];
+
+    const fitnessBlogPostsContainer = document.getElementById("fitnessBlogPosts");
+    const fitnessSearchInput = document.getElementById("fitnessSearchInput");
+    const fitnessSearchButton = document.getElementById("fitnessSearchButton");
+    const fitnessSearchResults = document.getElementById("fitnessSearchResults");
+    const fitnessSearchResultsList = document.getElementById("fitnessSearchResultsList");
+
+    function createBlogPostCard(post) {
+      return `
+        <article class="fitness-blog-card">
+          <div class="fitness-blog-card-img" style="background-image: url('${post.image}');">
+            <span class="fitness-blog-card-category">${post.category}</span>
+          </div>
+          <div class="fitness-blog-card-content">
+            <h2 class="fitness-blog-card-title">${post.title}</h2>
+            <p class="fitness-blog-card-excerpt">${post.excerpt}</p>
+            <div class="fitness-blog-card-meta">
+              <span class="fitness-blog-card-author">${post.author}</span>
+              <span class="fitness-blog-card-date">${post.date}</span>
+            </div>
+            <a href="#" class="fitness-btn-read-more">Read More</a>
+          </div>
+        </article>
+      `;
+    }
+
+    function displayBlogPosts() {
+      fitnessBlogPostsContainer.innerHTML = fitnessBlogPosts.map(createBlogPostCard).join("");
+    }
+
+    function performSearch() {
+      const searchTerm = fitnessSearchInput.value.toLowerCase();
+      const filteredPosts = fitnessBlogPosts.filter(
+        (post) =>
+          post.title.toLowerCase().includes(searchTerm) ||
+          post.excerpt.toLowerCase().includes(searchTerm) ||
+          post.category.toLowerCase().includes(searchTerm) ||
+          post.author.toLowerCase().includes(searchTerm)
+      );
+      displaySearchResults(filteredPosts);
+    }
+
+    function displaySearchResults(results) {
+      if (results.length === 0) {
+        fitnessSearchResultsList.innerHTML = "<p>No results found.</p>";
+      } else {
+        fitnessSearchResultsList.innerHTML = results
+          .map(
+            (post) => `
+            <div class="fitness-search-result-item">
+              <h4 class="fitness-search-result-title">${post.title}</h4>
+              <p class="fitness-search-result-excerpt">${post.excerpt}</p>
+            </div>
+          `
+          )
+          .join("");
+      }
+      fitnessBlogPostsContainer.style.display = "none";
+      fitnessSearchResults.style.display = "block";
+    }
+
+    function resetSearch() {
+      fitnessSearchResults.style.display = "none";
+      fitnessBlogPostsContainer.style.display = "block";
+      fitnessSearchResultsList.innerHTML = "";
+    }
+
+    // Event listeners for search functionality
+    fitnessSearchButton.addEventListener("click", performSearch);
+    fitnessSearchInput.addEventListener("keyup", (e) => {
+      if (e.key === "Enter") {
+        performSearch();
+      }
+      if (fitnessSearchInput.value === "") {
+        resetSearch();
+      }
+    });
+
+    // Initial display of blog posts
+    displayBlogPosts();
+  });
+})();
+
+    </script>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Fitness Club</h3>
+                    <p>Empowering you to achieve your fitness goals and embrace a healthier lifestyle. Join our community today!</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Classes Schedule</a></li>
+                        <li><a href="#">Membership Plans</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact-info">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Fitness Street, Healthy City, 12345</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@fitnessclub.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Fri: 5am-11pm, Sat-Sun: 7am-9pm</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Join Our Club</h3>
+                    <p>Start your fitness journey today and transform your life!</p>
+                    <a href="#" class="cta-button">Become a Member</a>
+                    <div class="payment-icons">
+                        <i class="fab fa-cc-visa"></i>
+                        <i class="fab fa-cc-mastercard"></i>
+                        <i class="fab fa-cc-amex"></i>
+                        <i class="fab fa-cc-paypal"></i>
+                        <i class="fab fa-apple-pay"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 Fitness Club. All rights reserved. | Designed with <i class="fas fa-heart" style="color: #4caf50"></i> for a healthier you</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+   
+
+</body>
+</html>

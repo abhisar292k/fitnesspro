@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitnessClub - Transform Your Life</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800;900&display=swap');
+
+        :root {
+            --primary-color: #4caf50;
+            --secondary-color: #ffc107;
+            --text-color: #ffffff;
+            --background-color: #1a1a1a;
+            --accent-color: #ff4081;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--background-color);
+            color: var(--text-color);
+            overflow: hidden;
+            height: 100vh;
+            cursor: none;
+        }
+
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--secondary-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.3s ease;
+            transform-origin: center center;
+        }
+
+        .cursor.hover {
+            transform: scale(1.5);
+            background: rgba(255, 193, 7, 0.1);
+        }
+
+        .cursor-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            background: radial-gradient(circle at center, #2a2a2a, var(--background-color));
+            overflow: hidden;
+        }
+
+        .content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+            animation: contentFade 4s forwards;
+        }
+
+        .fitness-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            perspective: 1000px;
+        }
+
+        .icon-wrapper {
+            position: relative;
+            transform-style: preserve-3d;
+            animation: iconRotate 6s infinite linear;
+        }
+
+        .animated-icon {
+            font-size: 40px;
+            color: var(--secondary-color);
+            animation: iconPulse 2s infinite;
+            position: relative;
+        }
+
+        .icon-wrapper::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            filter: blur(20px);
+            opacity: 0.3;
+            animation: glowPulse 2s infinite;
+            border-radius: 50%;
+        }
+
+        .logo {
+            font-size: 7rem;
+            font-weight: 900;
+            line-height: 1;
+            text-transform: uppercase;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .logo .fitness,
+        .logo .club {
+            display: block;
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .logo .fitness {
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+            animation: textSlideIn 1s ease-out forwards, logoFloat 4s ease-in-out infinite;
+        }
+
+        .logo .club {
+            color: var(--secondary-color);
+            font-size: 8rem;
+            margin-top: -20px;
+            text-shadow: 0 0 20px rgba(255, 193, 7, 0.5);
+            animation: textSlideIn 1s ease-out 0.3s forwards, logoFloat 4s ease-in-out infinite reverse;
+        }
+
+        .slogan {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 2rem 0;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color));
+            animation: loading 4s linear forwards;
+            position: relative;
+        }
+
+        .progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: progressShine 1s linear infinite;
+        }
+
+        .particles-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        @keyframes contentFade {
+            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes textSlideIn {
+            0% { opacity: 0; transform: translateX(-100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes iconRotate {
+            0% { transform: rotateY(0deg); }
+            100% { transform: rotateY(360deg); }
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.5); }
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0) rotateX(10deg); }
+            50% { transform: translateY(-10px) rotateX(-10deg); }
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes particleRise {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            100% { transform: translateY(-100px) scale(0); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 4rem; }
+            .logo .club { font-size: 5rem; }
+            .slogan { font-size: 1.2rem; }
+            .fitness-icons { gap: 15px; }
+            .animated-icon { font-size: 30px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cursor, .cursor-dot {
+                transition: none;
+            }
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <div class="container">
+        <div class="particles-container"></div>
+        
+        <div class="content">
+            <div class="fitness-icons">
+                <div class="icon-wrapper">
+                    <i class="fas fa-dumbbell animated-icon"></i>
+                </div>
+                <div class="icon-wrapper">
+                    <i class="fas fa-running animated-icon"></i>
+                </div>
+                <div class="icon-wrapper">
+                    <i class="fas fa-heartbeat animated-icon"></i>
+                </div>
+            </div>
+
+            <h1 class="logo">
+                <span class="fitness">Fitness</span>
+                <span class="club">Club</span>
+            </h1>
+            <p class="slogan">Transform Your Life</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced cursor interaction
+        const cursor = document.querySelector('.cursor');
+        const cursorDot = document.querySelector('.cursor-dot');
+
+        document.addEventListener('mousemove', (e) => {
+            requestAnimationFrame(() => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                cursorDot.style.left = e.clientX + 'px';
+                cursorDot.style.top = e.clientY + 'px';
+            });
+        });
+
+        // Cursor hover effects
+        document.querySelectorAll('a, button, .icon-wrapper').forEach(element => {
+            element.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            element.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
+
+        // Particle system
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            const x = Math.random() * window.innerWidth;
+            const size = Math.random() * 3 + 2;
+            
+            particle.style.left = x + 'px';
+            particle.style.bottom = '0px';
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.opacity = '0';
+            particle.style.animation = `particleRise ${Math.random() * 2 + 2}s ease-out`;
+            
+            document.querySelector('.particles-container').appendChild(particle);
+            
+            particle.addEventListener('animationend', () => particle.remove());
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 100);
+
+        // Automatic redirect after animation
+        setTimeout(() => {
+            window.location.href = '/index';
+        }, 4000);
+
+        // Add loading text to progress bar
+        const progress = document.querySelector('.progress');
+        progress.setAttribute('aria-label', 'Loading...');
+        progress.setAttribute('role', 'progressbar');
+
+        // Preload critical assets
+        window.addEventListener('load', () => {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                if (img.getAttribute('loading') !== 'lazy') {
+                    const preloadLink = document.createElement('link');
+                    preloadLink.rel = 'preload';
+                    preloadLink.as = 'image';
+                    preloadLink.href = img.src;
+                    document.head.appendChild(preloadLink);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

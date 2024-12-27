@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20-Day Cardio Challenge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #FF4136;
+            --secondary-color: #FF851B;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .day-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                transparent 40%,
+                rgba(255,255,255,0.2) 40%,
+                rgba(255,255,255,0.2) 60%,
+                transparent 60%,
+                transparent
+            );
+            transform: rotate(45deg);
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .day-card:hover::before {
+            top: -10%;
+            left: -10%;
+        }
+
+        .day-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .day-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .workout {
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .workout-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .workout-content {
+            background-color: rgba(255, 65, 54, 0.1);
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .header p {
+                font-size: 1rem;
+            }
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button i {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>20-Day Cardio Challenge</h1>
+            <p>Boost your cardiovascular health and endurance with our intensive cardio program</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="challenge-grid" id="challenge-grid">
+            <!-- Day cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        const cardioWorkouts = [
+            { warmup: "5 min light jog", main: "20 min steady-state run", cooldown: "5 min walk" },
+            { warmup: "5 min jump rope", main: "15 min HIIT (30 sec sprint, 30 sec rest)", cooldown: "5 min stretching" },
+            { warmup: "5 min brisk walk", main: "25 min cycling", cooldown: "5 min light cycling" },
+            { warmup: "5 min arm circles and leg swings", main: "20 min swimming", cooldown: "5 min floating and light swim" },
+            { warmup: "5 min high knees and butt kicks", main: "20 min stair climbing", cooldown: "5 min walk" },
+            { warmup: "5 min light jog", main: "30 min fartlek run", cooldown: "5 min walk" },
+            { warmup: "5 min jump rope", main: "25 min rowing machine", cooldown: "5 min stretching" },
+            { warmup: "5 min arm circles and leg swings", main: "20 min elliptical trainer", cooldown: "5 min light elliptical" },
+            { warmup: "5 min high knees and butt kicks", main: "20 min mountain climbers and burpees", cooldown: "5 min stretching" },
+            { warmup: "5 min brisk walk", main: "30 min dance cardio", cooldown: "5 min slow dance moves" },
+            { warmup: "5 min light jog", main: "35 min steady-state run", cooldown: "5 min walk" },
+            { warmup: "5 min jump rope", main: "20 min HIIT (40 sec sprint, 20 sec rest)", cooldown: "5 min stretching" },
+            { warmup: "5 min arm circles and leg swings", main: "30 min swimming", cooldown: "5 min floating and light swim" },
+            { warmup: "5 min high knees and butt kicks", main: "25 min boxing cardio", cooldown: "5 min stretching" },
+            { warmup: "5 min brisk walk", main: "35 min cycling", cooldown: "5 min light cycling" },
+            { warmup: "5 min light jog", main: "40 min steady-state run", cooldown: "5 min walk" },
+            { warmup: "5 min jump rope", main: "30 min rowing machine", cooldown: "5 min stretching" },
+            { warmup: "5 min arm circles and leg swings", main: "25 min HIIT (45 sec high intensity, 15 sec rest)", cooldown: "5 min stretching" },
+            { warmup: "5 min high knees and butt kicks", main: "35 min stair climbing", cooldown: "5 min walk" },
+            { warmup: "5 min brisk walk", main: "45 min steady-state run", cooldown: "5 min walk" }
+        ];
+
+        const challengeGrid = document.getElementById('challenge-grid');
+
+        function createDayCard(day, workout) {
+            const card = document.createElement('div');
+            card.className = 'day-card';
+            card.innerHTML = `
+                <div class="day-header">
+                    <h2>Day ${day}</h2>
+                </div>
+                <div class="workout">
+                    <span class="workout-title"><i class="fas fa-fire-alt"></i> Warm-up</span>
+                    <div class="workout-content">${workout.warmup}</div>
+                </div>
+                <div class="workout">
+                    <span class="workout-title"><i class="fas fa-running"></i> Main Workout</span>
+                    <div class="workout-content">${workout.main}</div>
+                </div>
+                <div class="workout">
+                    <span class="workout-title"><i class="fas fa-wind"></i> Cool-down</span>
+                    <div class="workout-content">${workout.cooldown}</div>
+                </div>
+            `;
+            return card;
+        }
+
+        function renderChallenge() {
+            challengeGrid.innerHTML = '';
+            for (let i = 0; i < 20; i++) {
+                const dayCard = createDayCard(i + 1, cardioWorkouts[i]);
+                challengeGrid.appendChild(dayCard);
+            }
+        }
+
+        // Initial render
+        renderChallenge();
+    </script>
+
+    <a href="javascript:history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Back
+    </a>
+</body>
+</html>

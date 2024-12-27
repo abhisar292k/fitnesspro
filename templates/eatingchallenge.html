@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>15-Day Healthy Eating Challenge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FFC107;
+            --bg-color: #f8f9fa;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            transform: rotate(45deg);
+            z-index: 1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .toggle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle {
+            position: relative;
+            display: inline-block;
+            width: 100px;
+            height: 50px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "\f06c"; /* Leaf icon */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            height: 42px;
+            width: 42px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 42px;
+            font-size: 20px;
+            color: var(--primary-color);
+        }
+
+        input:checked + .slider {
+            background-color: var(--secondary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(50px);
+            content: "\f6d5"; /* Drumstick icon */
+            color: var(--secondary-color);
+        }
+
+        .toggle-label {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 0 1rem;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .day-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                transparent 40%,
+                rgba(255,255,255,0.2) 40%,
+                rgba(255,255,255,0.2) 60%,
+                transparent 60%,
+                transparent
+            );
+            transform: rotate(45deg);
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .day-card:hover::before {
+            top: -10%;
+            left: -10%;
+        }
+
+        .day-header {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .day-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .meal {
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .meal-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .meal-content {
+            background-color: rgba(76, 175, 80, 0.1);
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            .header p {
+                font-size: 1rem;
+            }
+            .toggle-container {
+                flex-direction: column;
+            }
+            .toggle-label {
+                margin: 0.5rem 0;
+            }
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-button i {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>15-Day Healthy Eating Challenge</h1>
+            <p>Transform your diet and boost your health with our expertly crafted meal plans</p>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="toggle-container">
+            <span class="toggle-label" id="toggle-label-left">Vegetarian</span>
+            <label class="toggle">
+                <input type="checkbox" id="diet-toggle">
+                <span class="slider"></span>
+            </label>
+            <span class="toggle-label" id="toggle-label-right">Non-Vegetarian</span>
+        </div>
+        
+        <div class="challenge-grid" id="challenge-grid">
+            <!-- Day cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script>
+        const vegetarianMeals = [
+            { breakfast: "Acai bowl with mixed berries and granola", lunch: "Quinoa and roasted vegetable Buddha bowl", dinner: "Spicy lentil and vegetable curry with brown rice" },
+            { breakfast: "Avocado toast with poached eggs and microgreens", lunch: "Mediterranean chickpea salad with feta and olives", dinner: "Grilled portobello mushroom steaks with roasted sweet potato" },
+            { breakfast: "Green smoothie bowl topped with chia seeds and sliced almonds", lunch: "Vegetarian sushi rolls with avocado and cucumber", dinner: "Eggplant parmesan with zucchini noodles" },
+            { breakfast: "Whole grain waffles with almond butter and fresh fruit", lunch: "Caprese sandwich on whole wheat bread with balsamic glaze", dinner: "Vegetable and tofu stir-fry with brown rice" },
+            { breakfast: "Greek yogurt parfait with homemade granola and honey", lunch: "Spinach and feta quiche with mixed green salad", dinner: "Black bean and sweet potato enchiladas" },
+            { breakfast: "Breakfast burrito with scrambled eggs, black beans, and avocado", lunch: "Lentil and vegetable soup with whole grain crackers", dinner: "Grilled vegetable and halloumi skewers with quinoa tabbouleh" },
+            { breakfast: "Chia seed pudding with mango and coconut flakes", lunch: "Vegetarian club sandwich with hummus and sprouts", dinner: "Stuffed bell peppers with quinoa, vegetables, and feta" },
+            { breakfast: "Whole grain pancakes with fresh berries and maple syrup", lunch: "Greek salad with mixed olives and pita bread", dinner: "Vegetable lasagna with ricotta and spinach" },
+            { breakfast: "Spinach and mushroom frittata with whole grain toast", lunch: "Falafel wrap with tahini sauce and tabbouleh", dinner: "Cauliflower and chickpea curry with basmati rice" },
+            { breakfast: "Banana oatmeal muffins with almond milk", lunch: "Vegetarian chili with cornbread", dinner: "Grilled eggplant rollatini with tomato sauce" },
+            { breakfast: "Smoothie bowl with mixed berries, banana, and almond milk", lunch: "Caprese salad with balsamic reduction", dinner: "Vegetable and tofu pad thai" },
+            { breakfast: "Whole grain toast with mashed avocado and cherry tomatoes", lunch: "Roasted vegetable wrap with hummus", dinner: "Mushroom risotto with truffle oil" },
+            { breakfast: "Overnight oats with chia seeds and sliced peaches", lunch: "Quinoa tabbouleh with grilled halloumi", dinner: "Vegetarian sushi bowl with edamame and pickled ginger" },
+            { breakfast: "Vegetable and cheese omelette with whole grain toast", lunch: "Lentil and spinach salad with feta cheese", dinner: "Zucchini noodles with pesto and cherry tomatoes" },
+            { breakfast: "Apple cinnamon oatmeal with walnuts", lunch: "Vegetarian burrito bowl with black beans and guacamole", dinner: "Eggplant and chickpea tagine with couscous" }
+        ];
+
+        const nonVegetarianMeals = [
+            { breakfast: "Greek yogurt with honey and mixed nuts", lunch: "Grilled chicken Caesar salad", dinner: "Baked salmon with roasted Brussels sprouts and quinoa" },
+            { breakfast: "Scrambled eggs with spinach and feta on whole grain toast", lunch: "Turkey and avocado wrap with mixed greens", dinner: "Lean beef stir-fry with mixed vegetables and brown rice" },
+            { breakfast: "Protein smoothie with banana, peanut butter, and whey protein", lunch: "Tuna Nicoise salad with olive oil dressing", dinner: "Grilled shrimp skewers with zucchini noodles" },
+            { breakfast: "Whole grain waffle with almond butter and sliced banana", lunch: "Chicken and vegetable soup with whole grain crackers", dinner: "Baked cod with roasted sweet potato and broccoli" },
+            { breakfast: "Egg white frittata with bell peppers and onions", lunch: "Grilled chicken pesto sandwich on whole wheat bread", dinner: "Lean beef burger with avocado and sweet potato fries" },
+            { breakfast: "Smoked salmon and cream cheese on whole grain bagel", lunch: "Shrimp and avocado salad with citrus dressing", dinner: "Grilled chicken breast with quinoa and roasted vegetables" },
+            { breakfast: "Cottage cheese with fresh berries and almonds", lunch: "Turkey and hummus wrap with cucumber and tomato", dinner: "Baked tilapia with lemon butter sauce and asparagus" },
+            { breakfast: "Protein pancakes with fresh strawberries", lunch: "Chicken and black bean burrito bowl", dinner: "Grilled sirloin steak with roasted potatoes and green beans" },
+            { breakfast: "Vegetable omelette with turkey bacon", lunch: "Tuna salad on mixed greens with whole grain crackers", dinner: "Baked chicken parmesan with zucchini noodles" },
+            { breakfast: "Whole grain toast with mashed avocado and poached eggs", lunch: "Greek chicken wrap with tzatziki sauce", dinner: "Grilled salmon with quinoa and roasted Brussels sprouts" },
+            { breakfast: "Breakfast burrito with scrambled eggs and black beans", lunch: "Grilled chicken and peach salad", dinner: "Lean beef and vegetable stir-fry with brown rice" },
+            { breakfast: "Protein smoothie bowl with mixed berries and granola", lunch: "Turkey and avocado club sandwich", dinner: "Baked cod with lemon herb sauce and roasted vegetables" },
+            { breakfast: "Egg and vegetable breakfast muffins", lunch: "Chicken Caesar wrap with whole wheat tortilla", dinner: "Grilled shrimp and vegetable skewers with quinoa" },
+            { breakfast: "Whole grain cereal with almond milk and sliced banana", lunch: "Tuna and white bean salad with mixed greens", dinner: "Lean beef steak with sweet potato mash and green beans" },
+            { breakfast: "Greek yogurt parfait with fresh fruit and granola", lunch: "Grilled chicken and avocado salad", dinner: "Baked salmon with roasted asparagus and brown rice" }
+        ];
+
+        const toggleSwitch = document.getElementById('diet-toggle');
+        const toggleLabelLeft = document.getElementById('toggle-label-left');
+        const toggleLabelRight = document.getElementById('toggle-label-right');
+        const challengeGrid = document.getElementById('challenge-grid');
+
+        function createDayCard(day, meals) {
+            const card = document.createElement('div');
+            card.className = 'day-card';
+            card.innerHTML = `
+                <div class="day-header">
+                    <h2>Day ${day}</h2>
+                </div>
+                <div class="meal">
+                    <span class="meal-title"><i class="fas fa-sun meal-icon"></i>Breakfast</span>
+                    <div class="meal-content">${meals.breakfast}</div>
+                </div>
+                <div class="meal">
+                    <span class="meal-title"><i class="fas fa-cloud-sun meal-icon"></i>Lunch</span>
+                    <div class="meal-content">${meals.lunch}</div>
+                </div>
+                <div class="meal">
+                    <span class="meal-title"><i class="fas fa-moon meal-icon"></i>Dinner</span>
+                    <div class="meal-content">${meals.dinner}</div>
+                </div>
+            `;
+            return card;
+        }
+
+        function updateMealPlan() {
+            const isVegetarian = !toggleSwitch.checked;
+            const meals = isVegetarian ? vegetarianMeals : nonVegetarianMeals;
+            
+            challengeGrid.innerHTML = '';
+            for (let i = 0; i < 15; i++) {
+                const dayCard = createDayCard(i + 1, meals[i]);
+                challengeGrid.appendChild(dayCard);
+            }
+
+            toggleLabelLeft.style.fontWeight = isVegetarian ? 'bold' : 'normal';
+            toggleLabelRight.style.fontWeight = isVegetarian ? 'normal' : 'bold';
+        }
+
+        toggleSwitch.addEventListener('change', updateMealPlan);
+
+        // Initial render
+        updateMealPlan();
+    </script>
+
+    <a href="javascript:history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        Back
+    </a>
+</body>
+</html>
