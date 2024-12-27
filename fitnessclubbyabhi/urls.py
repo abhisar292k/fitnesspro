@@ -46,3 +46,6 @@ urlpatterns = [
     path('30days/', views.threedays, name='30days'),
     path('user-dashboard/', views.user_dashboard, name='user_dashboard'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
