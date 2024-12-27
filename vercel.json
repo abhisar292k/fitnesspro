@@ -7,8 +7,7 @@
             "config": {
                 "maxLambdaSize": "100mb",
                 "runtime": "python3.9"
-            },
-            "buildCommand": "python manage.py collectstatic --noinput"
+            }
         }
     ],
     "routes": [
@@ -22,3 +21,4 @@
         }
     ]
 }
+
